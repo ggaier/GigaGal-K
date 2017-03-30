@@ -27,6 +27,7 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         supportVersion='25.3.0'
+        appacheCommens='1.10'
     }
 
     repositories {
@@ -115,6 +116,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+        compile "commons-codec:commons-codec:$appacheCommens"
     }
 }
 
