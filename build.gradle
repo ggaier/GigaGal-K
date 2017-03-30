@@ -13,7 +13,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
-apply plugin: 'kotlin'
 
 allprojects {
     apply plugin: "eclipse"
@@ -27,6 +26,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        supportVersion='25.3.0'
     }
 
     repositories {
@@ -121,5 +121,3 @@ project(":core") {
 tasks.eclipse.doLast {
     delete ".project"
 }
-
-task createWrapper(type: Wrapper) { gradleVersion = "3.3" }
