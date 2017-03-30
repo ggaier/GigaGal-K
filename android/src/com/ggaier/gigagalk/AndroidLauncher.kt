@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.badlogic.gdx.ApplicationListener
 import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
-import com.ggaier.gigagalk.fileloading.FileLoading
+import com.ggaier.gigagalk.texturedrawing.TextureDrawing
 
 /**
  * Created by ggaier at 30/03/2017 .
@@ -17,7 +17,7 @@ class AndroidLauncher : AndroidApplication() {
         val flag = intent.getIntExtra(EXTRA_FLAG, -1)
         var applicationListener: ApplicationListener = GigaGalGame()
         when (flag) {
-            FLAG_FILE_LOADING -> applicationListener = FileLoading()
+            FLAG_DRAW_A_LOGO -> applicationListener = TextureDrawing()
         }
         if (applicationListener != null) {
             val config: AndroidApplicationConfiguration = AndroidApplicationConfiguration()

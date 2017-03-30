@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_entry.*
 const val EXTRA_FLAG="extra_flag"
-const val FLAG_FILE_LOADING=1
+const val FLAG_DRAW_A_LOGO =1
 class EntryActivity : AppCompatActivity() {
 
     private var mTextMessage: TextView? = null
@@ -40,8 +40,8 @@ class EntryActivity : AppCompatActivity() {
         val navigation = findViewById(R.id.navigation) as BottomNavigationView
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        file_loading.setOnClickListener {
-            startActivityWithFlag(FLAG_FILE_LOADING)
+        draw_logo.setOnClickListener {
+            startActivityWithFlag(FLAG_DRAW_A_LOGO)
         }
     }
 
