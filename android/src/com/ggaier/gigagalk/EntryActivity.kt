@@ -6,8 +6,11 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_entry.*
-const val EXTRA_FLAG="extra_flag"
-const val FLAG_DRAW_A_LOGO =1
+
+const val EXTRA_FLAG = "extra_flag"
+const val FLAG_DRAW_A_LOGO = 1
+const val FLAG_NINE_PATCH_DEMO = 2
+
 class EntryActivity : AppCompatActivity() {
 
     private var mTextMessage: TextView? = null
@@ -43,11 +46,15 @@ class EntryActivity : AppCompatActivity() {
         draw_logo.setOnClickListener {
             startActivityWithFlag(FLAG_DRAW_A_LOGO)
         }
+
+        nine_patch_demo.setOnClickListener {
+            startActivityWithFlag(FLAG_NINE_PATCH_DEMO)
+        }
     }
 
-    fun startActivityWithFlag(flag:Int){
-        val intent= Intent(this,AndroidLauncher::class.java)
-        intent.putExtra(EXTRA_FLAG,flag)
+    fun startActivityWithFlag(flag: Int) {
+        val intent = Intent(this, AndroidLauncher::class.java)
+        intent.putExtra(EXTRA_FLAG, flag)
         startActivity(intent)
     }
 
