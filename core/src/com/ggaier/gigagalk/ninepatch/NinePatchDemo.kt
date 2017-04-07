@@ -44,7 +44,7 @@ class NinePatchDemo : ApplicationAdapter() {
 
     override fun render() {
         mViewport.apply()
-        Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mBatch.projectionMatrix = mViewport.camera.combined
