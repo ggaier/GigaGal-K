@@ -27,7 +27,6 @@ class AndroidLauncher : AndroidApplication() {
             val config: AndroidApplicationConfiguration = AndroidApplicationConfiguration()
             initialize(applicationListener, config)
         }
-
     }
 
 }
