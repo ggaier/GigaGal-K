@@ -11,6 +11,7 @@ const val EXTRA_FLAG = "extra_flag"
 const val FLAG_DRAW_A_LOGO = 1
 const val FLAG_NINE_PATCH_DEMO = 2
 const val FLAG_WALK_AND_EXPLOSION= 3
+const val FLAG_TEXTURE_ATLAS= 4
 
 class EntryActivity : AppCompatActivity() {
 
@@ -54,6 +55,10 @@ class EntryActivity : AppCompatActivity() {
 
         animations.setOnClickListener {
             startActivityWithFlag(FLAG_WALK_AND_EXPLOSION)
+        }
+
+        texture_atlas.setOnClickListener {
+            startActivityWithFlag(FLAG_TEXTURE_ATLAS)
         }
     }
 

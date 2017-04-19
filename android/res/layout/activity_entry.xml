@@ -44,6 +44,13 @@
                     android:layout_height="wrap_content"
                     android:text="Walk and explosion animations"
                     />
+
+                <Button
+                    android:id="@+id/texture_atlas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Texture atlas"
+                    />
             </LinearLayout>
 
 
