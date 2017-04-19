@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.badlogic.gdx.ApplicationListener
 import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
+import com.ggaier.gigagalk.animation.Animations
 import com.ggaier.gigagalk.ninepatch.NinePatchDemo
 import com.ggaier.gigagalk.texturedrawing.TextureDrawing
 
@@ -20,6 +21,7 @@ class AndroidLauncher : AndroidApplication() {
         when (flag) {
             FLAG_DRAW_A_LOGO -> applicationListener = TextureDrawing()
             FLAG_NINE_PATCH_DEMO -> applicationListener = NinePatchDemo()
+            FLAG_WALK_AND_EXPLOSION -> applicationListener= Animations()
         }
         if (applicationListener != null) {
             val config: AndroidApplicationConfiguration = AndroidApplicationConfiguration()

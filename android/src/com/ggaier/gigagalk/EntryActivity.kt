@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_entry.*
 const val EXTRA_FLAG = "extra_flag"
 const val FLAG_DRAW_A_LOGO = 1
 const val FLAG_NINE_PATCH_DEMO = 2
+const val FLAG_WALK_AND_EXPLOSION= 3
 
 class EntryActivity : AppCompatActivity() {
 
@@ -49,6 +50,10 @@ class EntryActivity : AppCompatActivity() {
 
         nine_patch_demo.setOnClickListener {
             startActivityWithFlag(FLAG_NINE_PATCH_DEMO)
+        }
+
+        animations.setOnClickListener {
+            startActivityWithFlag(FLAG_WALK_AND_EXPLOSION)
         }
     }
 

@@ -65,12 +65,33 @@ class Animations : ApplicationAdapter() {
         //移除或者新增爆炸动画
         updateExplosions()
         mViewport.apply()
-        Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mBatch.projectionMatrix=mViewport.camera.combined
         mBatch.begin()
-        
+
+        //计算从开始到现在的start time in seconds
+        val elapsedTime=MathUtils.nanoToSec*(TimeUtils.nanoTime()-mStartTime)
+
+        val keyFrame:TextureRegion=mWalkLoop.getKeyFrame(elapsedTime)
+        drawRegionCentered(mBatch,keyFrame,mViewport.worldWidth/2,mViewport.worldHeight/2)
+
+
+        for( explosion in mExplosions){
+            drawRegionCentered(mBatch,explosion.getFrame(),explosion.mPosition.x,
+                    explosion.mPosition.y)
+        }
+        mBatch.end()
+
+    }
+
+    fun drawRegionCentered(batch: SpriteBatch, region: TextureRegion, x: Float,
+                           y: Float){
+        batch.draw(region.texture,x-region.regionWidth/2,y-region.regionHeight/2,
+                0f,0f,region.regionWidth.toFloat(),region.regionHeight.toFloat(),
+                1f,1f,0f,region.regionX,region.regionY,
+                region.regionWidth,region.regionHeight,false,false)
     }
 
 
