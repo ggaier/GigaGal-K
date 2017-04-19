@@ -124,7 +124,7 @@ project(":core") {
 
     task packTextures {
         def inputDir="$rootDir/core/rawAssets/sprites"
-        def outputDir="$rootDir/android/assests/images"
+        def outputDir="$rootDir/android/assets/images"
         inputs.dir inputDir
         outputs.dir outputDir
         doLast {
