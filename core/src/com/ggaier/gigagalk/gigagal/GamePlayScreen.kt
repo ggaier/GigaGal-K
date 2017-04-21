@@ -1,6 +1,8 @@
 package com.ggaier.gigagalk.gigagal
 
 import com.badlogic.gdx.ScreenAdapter
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -8,6 +10,8 @@ import com.badlogic.gdx.ScreenAdapter
  */
 class GamePlayScreen :ScreenAdapter(){
 
+    lateinit var mBatch:SpriteBatch
+    lateinit var mViewport:ExtendViewport
 
     override fun show() {
     }
