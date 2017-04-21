@@ -9,4 +9,18 @@ import com.badlogic.gdx.ScreenAdapter
 class GamePlayScreen :ScreenAdapter(){
 
 
+    override fun show() {
+    }
+
+    override fun render(delta: Float) {
+    }
+
+
+    override fun resize(width: Int, height: Int) {
+    }
+
+    override fun dispose() {
+    }
+
+
 }
