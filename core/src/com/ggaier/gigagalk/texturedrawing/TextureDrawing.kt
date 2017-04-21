@@ -12,9 +12,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
  * Created by ggaier at 30/03/2017 .
  * jwenbo52@gmail.com
  */
-const val WORLD_SIZE = 100.0f
-const val LOGO_SIZE = 0.5f * WORLD_SIZE
-
+private const val WORLD_SIZE = 100.0f
+private const val LOGO_SIZE = 0.5f * WORLD_SIZE
 class TextureDrawing : ApplicationAdapter() {
     val UDACITY_ORANGE: Color = Color(228.0f / 225.0f, 127.0f / 225.0f, 57.0f / 225.0f, 1.0f)
 
