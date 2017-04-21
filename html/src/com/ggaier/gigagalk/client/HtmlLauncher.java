@@ -3,7 +3,7 @@ package com.ggaier.gigagalk.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.ggaier.gigagalk.GigaGalGame;
+import com.ggaier.gigagalk.SimpleLogoGame;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -14,6 +14,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new GigaGalGame();
+                return new SimpleLogoGame();
         }
 }

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-class GigaGalGame : ApplicationAdapter() {
+class SimpleLogoGame : ApplicationAdapter() {
     lateinit internal var batch: SpriteBatch
     lateinit internal var img: Texture
 

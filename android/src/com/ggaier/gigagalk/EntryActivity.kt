@@ -12,6 +12,7 @@ const val FLAG_DRAW_A_LOGO = 1
 const val FLAG_NINE_PATCH_DEMO = 2
 const val FLAG_WALK_AND_EXPLOSION= 3
 const val FLAG_TEXTURE_ATLAS= 4
+const val FLAG_START_GIGAGAL= 5
 
 class EntryActivity : AppCompatActivity() {
 
@@ -59,6 +60,10 @@ class EntryActivity : AppCompatActivity() {
 
         texture_atlas.setOnClickListener {
             startActivityWithFlag(FLAG_TEXTURE_ATLAS)
+        }
+
+        gigagal.setOnClickListener {
+            startActivityWithFlag(FLAG_START_GIGAGAL)
         }
     }
 
