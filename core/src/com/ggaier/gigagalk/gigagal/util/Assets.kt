@@ -15,11 +15,10 @@ object Assets : Disposable, AssetErrorListener {
 
     inline fun getInstance(): Assets = this
 
-    private lateinit var mAssetsManager: AssetManager
-    public lateinit var mGigagalAssets: GigagalAsset
+    private var mAssetsManager: AssetManager = AssetManager()
+    val mGigagalAssets: GigagalAsset
 
     init {
-        mAssetsManager = AssetManager()
         mAssetsManager.setErrorListener(this)
         mAssetsManager.load(TEXTURE_ATLAS, TextureAtlas::class.java)
         mAssetsManager.finishLoading()

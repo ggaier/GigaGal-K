@@ -46,7 +46,7 @@ class GamePlayScreen :ScreenAdapter(){
 
 
     override fun resize(width: Int, height: Int) {
-        mViewport.update(width,height)
+        mViewport.update(width,height,true)
     }
 
     override fun dispose() {
