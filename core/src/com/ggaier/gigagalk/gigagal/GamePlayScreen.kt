@@ -17,15 +17,16 @@ class GamePlayScreen :ScreenAdapter(){
 
     lateinit var mBatch:SpriteBatch
     lateinit var mViewport:ExtendViewport
+    lateinit var mLevel:Level
 
     override fun show() {
-        Assets.getInstance()
         mBatch= SpriteBatch()
         mViewport=ExtendViewport(WORLD_SIZE, WORLD_SIZE)
-
+        mLevel=Level()
     }
 
     override fun render(delta: Float) {
+        mLevel.update(delta)
         mViewport.apply()
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r,
                 BACKGROUND_COLOR.g,
@@ -35,12 +36,7 @@ class GamePlayScreen :ScreenAdapter(){
 
         mBatch.projectionMatrix=mViewport.camera.combined
         mBatch.begin()
-        val region=Assets.getInstance().mGigagalAssets.mStandRight
-        mBatch.draw(region.texture,50f,50f,0f,0f,
-                region.regionWidth.toFloat(),region.regionHeight.toFloat(),
-                1f,1f,0f,
-                region.regionX,region.regionY,
-                region.regionWidth,region.regionHeight,false,false)
+        mLevel.render(mBatch)
         mBatch.end()
     }
 
@@ -50,7 +46,7 @@ class GamePlayScreen :ScreenAdapter(){
     }
 
     override fun dispose() {
-        Assets.getInstance().dispose()
+        Assets.dispose()
         mBatch.dispose()
     }
 

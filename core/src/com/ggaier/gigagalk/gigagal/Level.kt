@@ -1,6 +1,7 @@
 package com.ggaier.gigagalk.gigagal
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.ggaier.gigagalk.gigagal.entity.Gigagal
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -8,10 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
  */
 class Level(){
 
-    public fun update(delta:Float){}
+    private val gigagal=Gigagal()
+
+    public fun update(delta:Float){
+        gigagal.update(delta)
+    }
 
     public fun render(batch :SpriteBatch){
-
+        gigagal.render(batch)
     }
 
 }

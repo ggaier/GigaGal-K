@@ -13,8 +13,6 @@ import com.badlogic.gdx.utils.Disposable
  */
 object Assets : Disposable, AssetErrorListener {
 
-    inline fun getInstance(): Assets = this
-
     private var mAssetsManager: AssetManager = AssetManager()
     val mGigagalAssets: GigagalAsset
 
