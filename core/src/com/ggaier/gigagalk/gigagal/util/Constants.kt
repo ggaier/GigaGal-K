@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2
  * jwenbo52@gmail.com
  */
 internal const val STANDING_RIGHT: String = "standing-right"
+internal const val STANDING_LEFT: String = "standing-left"
 internal const val TEXTURE_ATLAS: String = "images/gigagal.pack.atlas"
 internal const val WORLD_SIZE: Float = 128f
 internal val BACKGROUND_COLOR: Color = Color.SKY
