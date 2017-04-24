@@ -16,34 +16,32 @@ import com.ggaier.gigagalk.gigagal.util.GIGAGAL_MOVING_SPEED
 class Gigagal {
 
     val mPosition: Vector2 = Vector2(20f, GIGAGAL_EYE_HEIGHT)
-    private var mFacing:Facing=Facing.RIGHT
+    private var mFacing: Facing = Facing.RIGHT
 
     public fun update(delta: Float) {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta)
-        }else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight(delta)
         }
     }
 
     private fun moveLeft(delta: Float) {
-        mFacing=Facing.LEFT
+        mFacing = Facing.LEFT
         mPosition.x -= delta * GIGAGAL_MOVING_SPEED
     }
 
     private fun moveRight(delta: Float) {
-        mFacing=Facing.RIGHT
+        mFacing = Facing.RIGHT
         mPosition.x += delta * GIGAGAL_MOVING_SPEED
     }
 
 
     public fun render(batch: SpriteBatch) {
-        var region = Assets.mGigagalAssets.mStandRight
-        if(mFacing==Facing.RIGHT){
-            region=Assets.mGigagalAssets.mStandRight
-        }else if(mFacing==Facing.LEFT){
-            region=Assets.mGigagalAssets.mStandLeft
-        }
+        val region = if (mFacing == Facing.RIGHT)
+            Assets.mGigagalAssets.mStandRight
+        else Assets.mGigagalAssets.mStandLeft
+        
         batch.draw(region.texture,
                 mPosition.x - GIGAGAL_EYE_POSITION.x,
                 mPosition.y - GIGAGAL_EYE_POSITION.y,
@@ -57,7 +55,7 @@ class Gigagal {
 
     }
 
-    enum class Facing{
-        LEFT,RIGHT
+    enum class Facing {
+        LEFT, RIGHT
     }
 }
