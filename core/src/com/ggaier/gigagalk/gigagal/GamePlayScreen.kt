@@ -35,9 +35,7 @@ class GamePlayScreen :ScreenAdapter(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mBatch.projectionMatrix=mViewport.camera.combined
-        mBatch.begin()
         mLevel.render(mBatch)
-        mBatch.end()
     }
 
 

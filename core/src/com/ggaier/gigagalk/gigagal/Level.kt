@@ -16,7 +16,9 @@ class Level(){
     }
 
     public fun render(batch :SpriteBatch){
+        batch.begin()
         gigagal.render(batch)
+        batch.end()
     }
 
 }

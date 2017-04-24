@@ -13,3 +13,4 @@ internal const val WORLD_SIZE: Float = 128f
 internal val BACKGROUND_COLOR: Color = Color.SKY
 const val GIGAGAL_EYE_HEIGHT=16.0f
 internal val GIGAGAL_EYE_POSITION=Vector2(16f,24f)
+const val GIGAGAL_MOVING_SPEED=64f
