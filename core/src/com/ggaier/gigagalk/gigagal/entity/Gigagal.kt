@@ -17,22 +17,24 @@ class Gigagal {
     val mPosition: Vector2 = Vector2(20f, GIGAGAL_EYE_HEIGHT)
     private var mFacing: Facing = Facing.RIGHT
     private val mVelocity: Vector2 = Vector2()
+    private val mLastFramePosition: Vector2 = Vector2(mPosition)
     private var mJumpState = JumpState.FALLING
     private var mJumpStartTime: Long = Long.MIN_VALUE
     private var mWalkingState: WalkingState = WalkingState.STANDING
+    private var mWalkStartTime: Long = Long.MIN_VALUE
 
     public fun update(delta: Float) {
+        mLastFramePosition.set(mPosition)
         mVelocity.y -= delta * GRAVITY
         mPosition.mulAdd(mVelocity, delta)
 
         if (mJumpState != JumpState.JUMPING) {
             mJumpState = JumpState.FALLING
-        }
-
-        if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
-            mJumpState = JumpState.GROUNDED
-            mPosition.y = GIGAGAL_EYE_HEIGHT
-            mVelocity.y = 0f
+            if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
+                mJumpState = JumpState.GROUNDED
+                mPosition.y = GIGAGAL_EYE_HEIGHT
+                mVelocity.y = 0f
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
             when (mJumpState) {
@@ -53,6 +55,9 @@ class Gigagal {
     }
 
     private fun moveLeft(delta: Float) {
+        if (mJumpState == JumpState.GROUNDED && mWalkingState != WalkingState.WALKING) {
+            mWalkStartTime = TimeUtils.nanoTime()
+        }
         mWalkingState = WalkingState.WALKING
         mPosition.x -= delta * GIGAGAL_MOVING_SPEED
         mFacing = Facing.LEFT
@@ -82,6 +87,9 @@ class Gigagal {
     }
 
     private fun moveRight(delta: Float) {
+        if (mJumpState == JumpState.GROUNDED && mWalkingState != WalkingState.WALKING) {
+            mWalkStartTime = TimeUtils.nanoTime()
+        }
         mFacing = Facing.RIGHT
         mWalkingState = WalkingState.WALKING
         mPosition.x += delta * GIGAGAL_MOVING_SPEED
@@ -94,14 +102,18 @@ class Gigagal {
                 Assets.mGigagalAssets.mJumpingRight
             mFacing == Facing.RIGHT && mWalkingState == WalkingState.STANDING ->
                 Assets.mGigagalAssets.mStandRight
-            mFacing == Facing.RIGHT && mWalkingState == WalkingState.WALKING ->
-                Assets.mGigagalAssets.mWalkingRight
+            mFacing == Facing.RIGHT && mWalkingState == WalkingState.WALKING -> {
+                val walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime)
+                Assets.mGigagalAssets.mWalkingRightAnimation.getKeyFrame(walkTimeSeconds)
+            }
             mFacing == Facing.LEFT && mJumpState != JumpState.GROUNDED ->
                 Assets.mGigagalAssets.mJumpingLeft
             mFacing == Facing.LEFT && mWalkingState == WalkingState.STANDING ->
                 Assets.mGigagalAssets.mStandLeft
-            mFacing == Facing.LEFT && mWalkingState == WalkingState.WALKING ->
-                Assets.mGigagalAssets.mWalkingLeft
+            mFacing == Facing.LEFT && mWalkingState == WalkingState.WALKING -> {
+                val walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime)
+                Assets.mGigagalAssets.mWalkingLeftAnimation.getKeyFrame(walkTimeSeconds)
+            }
             else ->
                 Assets.mGigagalAssets.mStandRight
         }

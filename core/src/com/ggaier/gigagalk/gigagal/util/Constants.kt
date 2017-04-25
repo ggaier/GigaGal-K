@@ -13,6 +13,13 @@ internal const val JUMPING_LEFT: String = "jumping-left"
 internal const val JUMPING_RIGHT: String = "jumping-right"
 internal const val WALKING_RIGHT_2: String = "walk-2-right"
 internal const val WALKING_LEFT_2: String = "walk-2-left"
+
+internal const val WALKING_LEFT_1: String = "walk-1-left"
+internal const val WALKING_LEFT_3: String = "walk-3-left"
+internal const val WALKING_RIGHT_1: String = "walk-1-right"
+internal const val WALKING_RIGHT_3: String = "walk-3-right"
+internal const val WALKING_LOOP_DURATION: Float= .25f
+
 internal const val TEXTURE_ATLAS: String = "images/gigagal.pack.atlas"
 internal const val WORLD_SIZE: Float = 128f
 internal val BACKGROUND_COLOR: Color = Color.SKY

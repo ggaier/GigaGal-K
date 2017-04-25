@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetErrorListener
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Disposable
 
 /**
@@ -39,8 +41,28 @@ object Assets : Disposable, AssetErrorListener {
         val mStandLeft: TextureAtlas.AtlasRegion = atlas.findRegion(STANDING_LEFT)
         val mJumpingLeft: TextureAtlas.AtlasRegion = atlas.findRegion(JUMPING_LEFT)
         val mJumpingRight: TextureAtlas.AtlasRegion = atlas.findRegion(JUMPING_RIGHT)
-        val mWalkingRight:TextureAtlas.AtlasRegion=atlas.findRegion(WALKING_RIGHT_2)
-        val mWalkingLeft:TextureAtlas.AtlasRegion=atlas.findRegion(WALKING_LEFT_2)
+        val mWalkingRight: TextureAtlas.AtlasRegion = atlas.findRegion(WALKING_RIGHT_2)
+        val mWalkingLeft: TextureAtlas.AtlasRegion = atlas.findRegion(WALKING_LEFT_2)
+        val mWalkingLeftAnimation: Animation<TextureAtlas.AtlasRegion>
+        val mWalkingRightAnimation: Animation<TextureAtlas.AtlasRegion>
+
+        init {
+            val walkingLeftFrames=Array<TextureAtlas.AtlasRegion>()
+            walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_2))
+            walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_1))
+            walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_2))
+            walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_3))
+            mWalkingLeftAnimation=Animation(WALKING_LOOP_DURATION,walkingLeftFrames,
+                    Animation.PlayMode.LOOP)
+
+            val walkingRightFrames=Array<TextureAtlas.AtlasRegion>()
+            walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_2))
+            walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_1))
+            walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_2))
+            walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_3))
+            mWalkingRightAnimation= Animation(WALKING_LOOP_DURATION,walkingRightFrames,
+                    Animation.PlayMode.LOOP)
+        }
 
     }
 
