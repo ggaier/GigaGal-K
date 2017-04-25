@@ -3,11 +3,10 @@ package com.ggaier.gigagalk.gigagal.entity
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
-import com.ggaier.gigagalk.gigagal.util.Assets
-import com.ggaier.gigagalk.gigagal.util.GIGAGAL_EYE_HEIGHT
-import com.ggaier.gigagalk.gigagal.util.GIGAGAL_EYE_POSITION
-import com.ggaier.gigagalk.gigagal.util.GIGAGAL_MOVING_SPEED
+import com.badlogic.gdx.utils.TimeUtils
+import com.ggaier.gigagalk.gigagal.util.*
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -17,8 +16,33 @@ class Gigagal {
 
     val mPosition: Vector2 = Vector2(20f, GIGAGAL_EYE_HEIGHT)
     private var mFacing: Facing = Facing.RIGHT
+    private val mVelocity: Vector2 = Vector2()
+    private var mJumpState = JumpState.FALLING
+    private var mJumpStartTime: Long = Long.MIN_VALUE
 
     public fun update(delta: Float) {
+        mVelocity.y -= delta * GRAVITY
+        mPosition.mulAdd(mVelocity, delta)
+
+        mJumpState = if (mJumpState != JumpState.JUMPING) JumpState.FALLING else JumpState.JUMPING
+
+        if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
+            mJumpState = JumpState.GROUNDED
+            mPosition.y = GIGAGAL_EYE_HEIGHT
+            mVelocity.y = 0f
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            when (mJumpState) {
+                JumpState.GROUNDED -> startJump()
+                JumpState.JUMPING -> startJump()
+                else -> {
+
+                }
+            }
+        } else {
+            endJump()
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta)
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -27,8 +51,31 @@ class Gigagal {
     }
 
     private fun moveLeft(delta: Float) {
-        mFacing = Facing.LEFT
         mPosition.x -= delta * GIGAGAL_MOVING_SPEED
+        mFacing = Facing.LEFT
+    }
+
+    private fun endJump() {
+        if (mJumpState == JumpState.JUMPING) {
+            mJumpState = JumpState.FALLING
+        }
+    }
+
+    private fun startJump() {
+        mJumpState = JumpState.JUMPING
+        mJumpStartTime = TimeUtils.nanoTime()
+        continueJump()
+    }
+
+    private fun continueJump() {
+        if (mJumpState == JumpState.JUMPING) {
+            val jumpDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - mJumpStartTime)
+            if (jumpDuration < MAX_JUMP_DURATION) {
+                mVelocity.y = JUMP_SPEED
+            } else {
+                endJump()
+            }
+        }
     }
 
     private fun moveRight(delta: Float) {
@@ -41,7 +88,7 @@ class Gigagal {
         val region = if (mFacing == Facing.RIGHT)
             Assets.mGigagalAssets.mStandRight
         else Assets.mGigagalAssets.mStandLeft
-        
+
         batch.draw(region.texture,
                 mPosition.x - GIGAGAL_EYE_POSITION.x,
                 mPosition.y - GIGAGAL_EYE_POSITION.y,
@@ -51,11 +98,15 @@ class Gigagal {
                 region.regionX, region.regionY,
                 region.regionWidth, region.regionHeight,
                 false, false)
-
-
     }
 
     enum class Facing {
         LEFT, RIGHT
+    }
+
+    enum class JumpState {
+        JUMPING,
+        FALLING,
+        GROUNDED
     }
 }
