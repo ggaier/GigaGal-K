@@ -19,6 +19,7 @@ class Gigagal {
     private val mVelocity: Vector2 = Vector2()
     private var mJumpState = JumpState.FALLING
     private var mJumpStartTime: Long = Long.MIN_VALUE
+    private var mWalkingState: WalkingState = WalkingState.STANDING
 
     public fun update(delta: Float) {
         mVelocity.y -= delta * GRAVITY
@@ -37,9 +38,6 @@ class Gigagal {
             when (mJumpState) {
                 JumpState.GROUNDED -> startJump()
                 JumpState.JUMPING -> continueJump()
-                else -> {
-
-                }
             }
         } else {
             endJump()
@@ -49,10 +47,13 @@ class Gigagal {
             moveLeft(delta)
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight(delta)
+        } else {
+            mWalkingState = WalkingState.STANDING
         }
     }
 
     private fun moveLeft(delta: Float) {
+        mWalkingState = WalkingState.WALKING
         mPosition.x -= delta * GIGAGAL_MOVING_SPEED
         mFacing = Facing.LEFT
     }
@@ -82,6 +83,7 @@ class Gigagal {
 
     private fun moveRight(delta: Float) {
         mFacing = Facing.RIGHT
+        mWalkingState = WalkingState.WALKING
         mPosition.x += delta * GIGAGAL_MOVING_SPEED
     }
 
@@ -90,10 +92,16 @@ class Gigagal {
         val region = when {
             mFacing == Facing.RIGHT && mJumpState != JumpState.GROUNDED ->
                 Assets.mGigagalAssets.mJumpingRight
-            mFacing == Facing.RIGHT -> Assets.mGigagalAssets.mStandRight
+            mFacing == Facing.RIGHT && mWalkingState == WalkingState.STANDING ->
+                Assets.mGigagalAssets.mStandRight
+            mFacing == Facing.RIGHT && mWalkingState == WalkingState.WALKING ->
+                Assets.mGigagalAssets.mWalkingRight
             mFacing == Facing.LEFT && mJumpState != JumpState.GROUNDED ->
                 Assets.mGigagalAssets.mJumpingLeft
-            mFacing == Facing.LEFT -> Assets.mGigagalAssets.mStandLeft
+            mFacing == Facing.LEFT && mWalkingState == WalkingState.STANDING ->
+                Assets.mGigagalAssets.mStandLeft
+            mFacing == Facing.LEFT && mWalkingState == WalkingState.WALKING ->
+                Assets.mGigagalAssets.mWalkingLeft
             else ->
                 Assets.mGigagalAssets.mStandRight
         }
@@ -116,5 +124,10 @@ class Gigagal {
         JUMPING,
         FALLING,
         GROUNDED
+    }
+
+    enum class WalkingState {
+        STANDING,
+        WALKING
     }
 }

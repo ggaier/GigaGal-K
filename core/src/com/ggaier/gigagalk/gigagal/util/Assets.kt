@@ -39,6 +39,8 @@ object Assets : Disposable, AssetErrorListener {
         val mStandLeft: TextureAtlas.AtlasRegion = atlas.findRegion(STANDING_LEFT)
         val mJumpingLeft: TextureAtlas.AtlasRegion = atlas.findRegion(JUMPING_LEFT)
         val mJumpingRight: TextureAtlas.AtlasRegion = atlas.findRegion(JUMPING_RIGHT)
+        val mWalkingRight:TextureAtlas.AtlasRegion=atlas.findRegion(WALKING_RIGHT_2)
+        val mWalkingLeft:TextureAtlas.AtlasRegion=atlas.findRegion(WALKING_LEFT_2)
 
     }
 
