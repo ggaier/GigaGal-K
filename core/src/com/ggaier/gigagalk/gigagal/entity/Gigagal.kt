@@ -24,7 +24,9 @@ class Gigagal {
         mVelocity.y -= delta * GRAVITY
         mPosition.mulAdd(mVelocity, delta)
 
-        mJumpState = if (mJumpState != JumpState.JUMPING) JumpState.FALLING else JumpState.JUMPING
+        if (mJumpState != JumpState.JUMPING) {
+            mJumpState = JumpState.FALLING
+        }
 
         if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
             mJumpState = JumpState.GROUNDED
@@ -34,7 +36,7 @@ class Gigagal {
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
             when (mJumpState) {
                 JumpState.GROUNDED -> startJump()
-                JumpState.JUMPING -> startJump()
+                JumpState.JUMPING -> continueJump()
                 else -> {
 
                 }
