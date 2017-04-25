@@ -87,10 +87,16 @@ class Gigagal {
 
 
     public fun render(batch: SpriteBatch) {
-        val region = if (mFacing == Facing.RIGHT)
-            Assets.mGigagalAssets.mStandRight
-        else Assets.mGigagalAssets.mStandLeft
-
+        val region = when {
+            mFacing == Facing.RIGHT && mJumpState != JumpState.GROUNDED ->
+                Assets.mGigagalAssets.mJumpingRight
+            mFacing == Facing.RIGHT -> Assets.mGigagalAssets.mStandRight
+            mFacing == Facing.LEFT && mJumpState != JumpState.GROUNDED ->
+                Assets.mGigagalAssets.mJumpingLeft
+            mFacing == Facing.LEFT -> Assets.mGigagalAssets.mStandLeft
+            else ->
+                Assets.mGigagalAssets.mStandRight
+        }
         batch.draw(region.texture,
                 mPosition.x - GIGAGAL_EYE_POSITION.x,
                 mPosition.y - GIGAGAL_EYE_POSITION.y,

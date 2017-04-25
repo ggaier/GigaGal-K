@@ -36,7 +36,9 @@ object Assets : Disposable, AssetErrorListener {
     class GigagalAsset(atlas: TextureAtlas) {
 
         val mStandRight: TextureAtlas.AtlasRegion = atlas.findRegion(STANDING_RIGHT)
-        val mStandLeft:TextureAtlas.AtlasRegion = atlas.findRegion(STANDING_LEFT)
+        val mStandLeft: TextureAtlas.AtlasRegion = atlas.findRegion(STANDING_LEFT)
+        val mJumpingLeft: TextureAtlas.AtlasRegion = atlas.findRegion(JUMPING_LEFT)
+        val mJumpingRight: TextureAtlas.AtlasRegion = atlas.findRegion(JUMPING_RIGHT)
 
     }
 
