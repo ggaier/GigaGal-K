@@ -25,7 +25,8 @@ class GamePlayScreen :ScreenAdapter(){
         mBatch= SpriteBatch()
         mViewport=ExtendViewport(WORLD_SIZE, WORLD_SIZE)
         mLevel=Level()
-        mShapeRenderer=ShapeRenderer()
+        mShapeRenderer= ShapeRenderer()
+        mShapeRenderer.setAutoShapeType(true)
     }
 
     override fun render(delta: Float) {
@@ -38,6 +39,7 @@ class GamePlayScreen :ScreenAdapter(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mBatch.projectionMatrix=mViewport.camera.combined
+        mShapeRenderer.projectionMatrix=mViewport.camera.combined
         mLevel.render(mBatch,mShapeRenderer)
     }
 
