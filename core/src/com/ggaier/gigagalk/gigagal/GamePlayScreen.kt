@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.ggaier.gigagalk.gigagal.util.Assets
 import com.ggaier.gigagalk.gigagal.util.BACKGROUND_COLOR
@@ -15,14 +16,16 @@ import com.ggaier.gigagalk.gigagal.util.WORLD_SIZE
  */
 class GamePlayScreen :ScreenAdapter(){
 
-    lateinit var mBatch:SpriteBatch
-    lateinit var mViewport:ExtendViewport
-    lateinit var mLevel:Level
+    private lateinit var mBatch:SpriteBatch
+    private lateinit var mViewport:ExtendViewport
+    private lateinit var mLevel:Level
+    private lateinit var mShapeRenderer:ShapeRenderer
 
     override fun show() {
         mBatch= SpriteBatch()
         mViewport=ExtendViewport(WORLD_SIZE, WORLD_SIZE)
         mLevel=Level()
+        mShapeRenderer=ShapeRenderer()
     }
 
     override fun render(delta: Float) {
@@ -35,7 +38,7 @@ class GamePlayScreen :ScreenAdapter(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mBatch.projectionMatrix=mViewport.camera.combined
-        mLevel.render(mBatch)
+        mLevel.render(mBatch,mShapeRenderer)
     }
 
 

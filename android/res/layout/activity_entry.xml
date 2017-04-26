@@ -52,7 +52,7 @@
                     android:text="Texture atlas"
                     />
                 <Button
-                    android:id="@+id/gigagal"
+                    android:id="@+id/mGigagal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start Gigagal"

@@ -1,23 +1,38 @@
 package com.ggaier.gigagalk.gigagal
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.utils.Array
 import com.ggaier.gigagalk.gigagal.entity.Gigagal
+import com.ggaier.gigagalk.gigagal.entity.Platform
 
 /**
  * Created by ggaier at 20/04/2017 .
  * jwenbo52@gmail.com
  */
-class Level(){
+class Level{
 
-    private val gigagal=Gigagal()
+    private val mGigagal =Gigagal()
 
-    public fun update(delta:Float){
-        gigagal.update(delta)
+    private val mPlatforms=Array<Platform>()
+
+    init {
+        mPlatforms.add(Platform(70f,30f,20f,20f))
     }
 
-    public fun render(batch :SpriteBatch){
+    public fun update(delta:Float){
+        mGigagal.update(delta)
+    }
+
+    public fun render(batch :SpriteBatch,renderer:ShapeRenderer){
+        renderer.begin(ShapeRenderer.ShapeType.Filled)
+        for(platform in mPlatforms){
+            platform.render(renderer)
+        }
+        renderer.end()
+
         batch.begin()
-        gigagal.render(batch)
+        mGigagal.render(batch)
         batch.end()
     }
 
