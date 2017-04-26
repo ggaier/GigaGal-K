@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetErrorListener
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Disposable
@@ -17,6 +18,7 @@ object Assets : Disposable, AssetErrorListener {
 
     private var mAssetsManager: AssetManager = AssetManager()
     val mGigagalAssets: GigagalAsset
+    val mPlatformAssets: PlatformAssets
 
     init {
         mAssetsManager.setErrorListener(this)
@@ -24,6 +26,7 @@ object Assets : Disposable, AssetErrorListener {
         mAssetsManager.finishLoading()
         val atlas: TextureAtlas = mAssetsManager.get(TEXTURE_ATLAS)
         mGigagalAssets = GigagalAsset(atlas)
+        mPlatformAssets = PlatformAssets(atlas)
     }
 
     override fun error(asset: AssetDescriptor<*>?, throwable: Throwable?) {
@@ -47,21 +50,33 @@ object Assets : Disposable, AssetErrorListener {
         val mWalkingRightAnimation: Animation<TextureAtlas.AtlasRegion>
 
         init {
-            val walkingLeftFrames=Array<TextureAtlas.AtlasRegion>()
+            val walkingLeftFrames = Array<TextureAtlas.AtlasRegion>()
             walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_2))
             walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_1))
             walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_2))
             walkingLeftFrames.add(atlas.findRegion(WALKING_LEFT_3))
-            mWalkingLeftAnimation=Animation(WALKING_LOOP_DURATION,walkingLeftFrames,
+            mWalkingLeftAnimation = Animation(WALKING_LOOP_DURATION, walkingLeftFrames,
                     Animation.PlayMode.LOOP)
 
-            val walkingRightFrames=Array<TextureAtlas.AtlasRegion>()
+            val walkingRightFrames = Array<TextureAtlas.AtlasRegion>()
             walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_2))
             walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_1))
             walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_2))
             walkingRightFrames.add(atlas.findRegion(WALKING_RIGHT_3))
-            mWalkingRightAnimation= Animation(WALKING_LOOP_DURATION,walkingRightFrames,
+            mWalkingRightAnimation = Animation(WALKING_LOOP_DURATION, walkingRightFrames,
                     Animation.PlayMode.LOOP)
+        }
+
+    }
+
+    class PlatformAssets(atlas: TextureAtlas) {
+
+        val mPlatformNinePatch: NinePatch
+
+        init {
+            val region = atlas.findRegion(PLATFORM_SPRITE)
+            val edge = PLATFORM_EDGE
+            mPlatformNinePatch = NinePatch(region, edge, edge, edge, edge)
         }
 
     }

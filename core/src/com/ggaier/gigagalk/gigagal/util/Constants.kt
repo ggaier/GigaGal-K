@@ -29,3 +29,6 @@ const val GIGAGAL_MOVING_SPEED=64f
 const val GRAVITY:Float=1000f
 const val MAX_JUMP_DURATION:Float=.15f
 const val JUMP_SPEED:Float=250f
+
+const val PLATFORM_SPRITE="platform"
+const val PLATFORM_EDGE=8

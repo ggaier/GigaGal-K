@@ -26,12 +26,12 @@ class Level{
 
     public fun render(batch :SpriteBatch,renderer:ShapeRenderer){
         renderer.begin(ShapeRenderer.ShapeType.Filled)
-        for(platform in mPlatforms){
-            platform.render(renderer)
-        }
         renderer.end()
 
         batch.begin()
+        for(platform in mPlatforms){
+            platform.render(batch)
+        }
         mGigagal.render(batch)
         batch.end()
     }
