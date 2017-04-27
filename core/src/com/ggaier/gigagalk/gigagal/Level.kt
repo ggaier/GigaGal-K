@@ -17,7 +17,7 @@ class Level {
     private val mPlatforms = Array<Platform>()
 
     init {
-        mPlatforms.add(Platform(70f, 30f, 20f, 20f))
+//        mPlatforms.add(Platform(70f, 30f, 20f, 20f))
         addDebugPlatforms()
     }
 
