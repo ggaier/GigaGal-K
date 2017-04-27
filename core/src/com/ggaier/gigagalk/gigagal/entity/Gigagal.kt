@@ -13,29 +13,47 @@ import com.ggaier.gigagalk.gigagal.util.*
  * Created by ggaier at 20/04/2017 .
  * jwenbo52@gmail.com
  */
-class Gigagal (val mPosition:Vector2){
+class Gigagal(val mSpawnLocation: Vector2) {
+
+    private val mVelocity: Vector2 = Vector2()
+    private val mLastFramePosition: Vector2 = Vector2()
+    val mPosition: Vector2 = Vector2()
 
     private var mFacing: Facing = Facing.RIGHT
-    private val mVelocity: Vector2 = Vector2()
     private var mJumpState = JumpState.FALLING
-    private var mJumpStartTime: Long = Long.MIN_VALUE
     private var mWalkingState: WalkingState = WalkingState.STANDING
+
+    private var mJumpStartTime: Long = Long.MIN_VALUE
     private var mWalkStartTime: Long = Long.MIN_VALUE
 
-    private val mLastFramePosition: Vector2 = Vector2(mPosition)
+    init {
+        init()
+    }
+
+    fun init() {
+        mPosition.set(mSpawnLocation)
+        mLastFramePosition.set(mSpawnLocation)
+        mVelocity.setZero()
+        mJumpState = JumpState.FALLING
+        mFacing = Facing.RIGHT
+        mWalkingState = WalkingState.STANDING
+    }
+
 
     fun update(delta: Float, platforms: Array<Platform>) {
         mLastFramePosition.set(mPosition)
         mVelocity.y -= delta * GRAVITY
         mPosition.mulAdd(mVelocity, delta)
-
+        if (mPosition.y < KILLING_PANE) {
+            init()
+        }
         if (mJumpState != JumpState.JUMPING) {
             mJumpState = JumpState.FALLING
-//            if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
-//                mJumpState = JumpState.GROUNDED
-//                mPosition.y = GIGAGAL_EYE_HEIGHT
-//                mVelocity.y = 0f
-//            }
+            //            if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
+            //                mJumpState = JumpState.GROUNDED
+            //                mPosition.y = GIGAGAL_EYE_HEIGHT
+            //                mVelocity.y = 0f
+            //            }
 
             platforms.forEach {
                 if (landedOnPlatform(it)) {

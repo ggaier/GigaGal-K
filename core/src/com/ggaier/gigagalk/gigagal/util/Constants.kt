@@ -35,3 +35,5 @@ const val JUMP_SPEED:Float=250f
 
 const val PLATFORM_SPRITE="platform"
 const val PLATFORM_EDGE=8
+
+internal val KILLING_PANE=-100f
