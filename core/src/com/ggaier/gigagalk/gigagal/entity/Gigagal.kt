@@ -40,7 +40,7 @@ class Gigagal {
 
             platforms.forEach {
                 if (landedOnPlatform(it)) {
-                    mJumpState = JumpState.GROUNDEDq
+                    mJumpState = JumpState.GROUNDED
                     mVelocity.y = 0f
                     mPosition.y = it.mTop + GIGAGAL_EYE_HEIGHT
                 }
