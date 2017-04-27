@@ -13,9 +13,8 @@ import com.ggaier.gigagalk.gigagal.util.*
  * Created by ggaier at 20/04/2017 .
  * jwenbo52@gmail.com
  */
-class Gigagal {
+class Gigagal (val mPosition:Vector2){
 
-    val mPosition: Vector2 = Vector2(20f, GIGAGAL_EYE_HEIGHT)
     private var mFacing: Facing = Facing.RIGHT
     private val mVelocity: Vector2 = Vector2()
     private var mJumpState = JumpState.FALLING
@@ -32,11 +31,11 @@ class Gigagal {
 
         if (mJumpState != JumpState.JUMPING) {
             mJumpState = JumpState.FALLING
-            if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
-                mJumpState = JumpState.GROUNDED
-                mPosition.y = GIGAGAL_EYE_HEIGHT
-                mVelocity.y = 0f
-            }
+//            if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
+//                mJumpState = JumpState.GROUNDED
+//                mPosition.y = GIGAGAL_EYE_HEIGHT
+//                mVelocity.y = 0f
+//            }
 
             platforms.forEach {
                 if (landedOnPlatform(it)) {

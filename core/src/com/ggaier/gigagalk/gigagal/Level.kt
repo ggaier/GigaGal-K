@@ -2,6 +2,7 @@ package com.ggaier.gigagalk.gigagal
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.ggaier.gigagalk.gigagal.entity.Gigagal
 import com.ggaier.gigagalk.gigagal.entity.Platform
@@ -12,13 +13,14 @@ import com.ggaier.gigagalk.gigagal.entity.Platform
  */
 class Level {
 
-    val mGigagal = Gigagal()
+    val mGigagal:Gigagal
 
     private val mPlatforms = Array<Platform>()
 
     init {
 //        mPlatforms.add(Platform(70f, 30f, 20f, 20f))
         addDebugPlatforms()
+        mGigagal= Gigagal(Vector2(15f,40f))
     }
 
     private fun addDebugPlatforms() {
