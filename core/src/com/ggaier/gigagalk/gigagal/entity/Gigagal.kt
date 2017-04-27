@@ -40,8 +40,7 @@ class Gigagal {
 
             platforms.forEach {
                 if (landedOnPlatform(it)) {
-                    
-                    mJumpState = JumpState.GROUNDED
+                    mJumpState = JumpState.GROUNDEDq
                     mVelocity.y = 0f
                     mPosition.y = it.mTop + GIGAGAL_EYE_HEIGHT
                 }
@@ -69,8 +68,7 @@ class Gigagal {
         var leftFootIn = false
         var rightFootIn = false
         var straddle = false
-
-        if (mLastFramePosition.y - GIGAGAL_EYE_HEIGHT > platform.mTop && mPosition.y -
+        if (mLastFramePosition.y - GIGAGAL_EYE_HEIGHT >= platform.mTop && mPosition.y -
                 GIGAGAL_EYE_HEIGHT < platform.mTop) {
             val leftFoot = mPosition.x - GIGAGAL_STANCE_WIDTH / 2
             val rightFoot = mPosition.x + GIGAGAL_STANCE_WIDTH / 2
@@ -122,7 +120,7 @@ class Gigagal {
         }
     }
 
-    public fun render(batch: SpriteBatch) {
+    fun render(batch: SpriteBatch) {
         val region = when {
             mFacing == Facing.RIGHT && mJumpState != JumpState.GROUNDED ->
                 Assets.mGigagalAssets.mJumpingRight

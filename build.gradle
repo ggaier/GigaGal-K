@@ -78,6 +78,7 @@ project(":android") {
         compile "com.android.support:design:$supportVersion"
         compile "com.android.support:appcompat-v7:$supportVersion"
         compile "com.android.support:support-vector-drawable:$supportVersion"
+        compile 'com.orhanobut:logger:1.15'
     }
 }
 
