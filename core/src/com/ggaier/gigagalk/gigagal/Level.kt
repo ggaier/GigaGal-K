@@ -12,7 +12,7 @@ import com.ggaier.gigagalk.gigagal.entity.Platform
  */
 class Level {
 
-    private val mGigagal = Gigagal()
+    val mGigagal = Gigagal()
 
     private val mPlatforms = Array<Platform>()
 

@@ -8,29 +8,35 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.ggaier.gigagalk.gigagal.util.Assets
 import com.ggaier.gigagalk.gigagal.util.BACKGROUND_COLOR
+import com.ggaier.gigagalk.gigagal.util.ChaseCam
 import com.ggaier.gigagalk.gigagal.util.WORLD_SIZE
 
 /**
  * Created by ggaier at 20/04/2017 .
  * jwenbo52@gmail.com
  */
-class GamePlayScreen :ScreenAdapter(){
+class GamePlayScreen : ScreenAdapter() {
 
-    private lateinit var mBatch:SpriteBatch
-    private lateinit var mViewport:ExtendViewport
-    private lateinit var mLevel:Level
-    private lateinit var mShapeRenderer:ShapeRenderer
+    private lateinit var mBatch: SpriteBatch
+    private lateinit var mViewport: ExtendViewport
+    private lateinit var mLevel: Level
+    private lateinit var mShapeRenderer: ShapeRenderer
+
+    private lateinit var mChaseCam: ChaseCam
 
     override fun show() {
-        mBatch= SpriteBatch()
-        mViewport=ExtendViewport(WORLD_SIZE, WORLD_SIZE)
-        mLevel=Level()
-        mShapeRenderer= ShapeRenderer()
+        mBatch = SpriteBatch()
+        mViewport = ExtendViewport(WORLD_SIZE, WORLD_SIZE)
+        mLevel = Level()
+        mShapeRenderer = ShapeRenderer()
         mShapeRenderer.setAutoShapeType(true)
+        mChaseCam = ChaseCam(mViewport.camera, mLevel.mGigagal)
     }
 
     override fun render(delta: Float) {
         mLevel.update(delta)
+        mChaseCam.update()
+
         mViewport.apply()
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r,
                 BACKGROUND_COLOR.g,
@@ -38,14 +44,14 @@ class GamePlayScreen :ScreenAdapter(){
                 BACKGROUND_COLOR.a)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        mBatch.projectionMatrix=mViewport.camera.combined
-        mShapeRenderer.projectionMatrix=mViewport.camera.combined
-        mLevel.render(mBatch,mShapeRenderer)
+        mBatch.projectionMatrix = mViewport.camera.combined
+        mShapeRenderer.projectionMatrix = mViewport.camera.combined
+        mLevel.render(mBatch, mShapeRenderer)
     }
 
 
     override fun resize(width: Int, height: Int) {
-        mViewport.update(width,height,true)
+        mViewport.update(width, height, true)
     }
 
     override fun dispose() {
