@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.TimeUtils
 import com.ggaier.gigagalk.gigagal.util.*
 
@@ -17,13 +18,14 @@ class Gigagal {
     val mPosition: Vector2 = Vector2(20f, GIGAGAL_EYE_HEIGHT)
     private var mFacing: Facing = Facing.RIGHT
     private val mVelocity: Vector2 = Vector2()
-    private val mLastFramePosition: Vector2 = Vector2(mPosition)
     private var mJumpState = JumpState.FALLING
     private var mJumpStartTime: Long = Long.MIN_VALUE
     private var mWalkingState: WalkingState = WalkingState.STANDING
     private var mWalkStartTime: Long = Long.MIN_VALUE
 
-    public fun update(delta: Float) {
+    private val mLastFramePosition: Vector2 = Vector2(mPosition)
+
+    fun update(delta: Float, platforms: Array<Platform>) {
         mLastFramePosition.set(mPosition)
         mVelocity.y -= delta * GRAVITY
         mPosition.mulAdd(mVelocity, delta)
@@ -34,6 +36,15 @@ class Gigagal {
                 mJumpState = JumpState.GROUNDED
                 mPosition.y = GIGAGAL_EYE_HEIGHT
                 mVelocity.y = 0f
+            }
+
+            platforms.forEach {
+                if (landedOnPlatform(it)) {
+                    
+                    mJumpState = JumpState.GROUNDED
+                    mVelocity.y = 0f
+                    mPosition.y = it.mTop + GIGAGAL_EYE_HEIGHT
+                }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
@@ -54,6 +65,22 @@ class Gigagal {
         }
     }
 
+    fun landedOnPlatform(platform: Platform): Boolean {
+        var leftFootIn = false
+        var rightFootIn = false
+        var straddle = false
+
+        if (mLastFramePosition.y - GIGAGAL_EYE_HEIGHT > platform.mTop && mPosition.y -
+                GIGAGAL_EYE_HEIGHT < platform.mTop) {
+            val leftFoot = mPosition.x - GIGAGAL_STANCE_WIDTH / 2
+            val rightFoot = mPosition.x + GIGAGAL_STANCE_WIDTH / 2
+            leftFootIn = (platform.mLeft < leftFoot && platform.mRright > leftFoot)
+            rightFootIn = (platform.mLeft < rightFoot && platform.mRright > rightFoot)
+            straddle = (platform.mLeft > leftFoot && platform.mRright < rightFoot)
+        }
+        return leftFootIn || rightFootIn || straddle
+    }
+
     private fun moveLeft(delta: Float) {
         if (mJumpState == JumpState.GROUNDED && mWalkingState != WalkingState.WALKING) {
             mWalkStartTime = TimeUtils.nanoTime()
@@ -61,6 +88,15 @@ class Gigagal {
         mWalkingState = WalkingState.WALKING
         mPosition.x -= delta * GIGAGAL_MOVING_SPEED
         mFacing = Facing.LEFT
+    }
+
+    private fun moveRight(delta: Float) {
+        if (mJumpState == JumpState.GROUNDED && mWalkingState != WalkingState.WALKING) {
+            mWalkStartTime = TimeUtils.nanoTime()
+        }
+        mFacing = Facing.RIGHT
+        mWalkingState = WalkingState.WALKING
+        mPosition.x += delta * GIGAGAL_MOVING_SPEED
     }
 
     private fun endJump() {
@@ -85,16 +121,6 @@ class Gigagal {
             }
         }
     }
-
-    private fun moveRight(delta: Float) {
-        if (mJumpState == JumpState.GROUNDED && mWalkingState != WalkingState.WALKING) {
-            mWalkStartTime = TimeUtils.nanoTime()
-        }
-        mFacing = Facing.RIGHT
-        mWalkingState = WalkingState.WALKING
-        mPosition.x += delta * GIGAGAL_MOVING_SPEED
-    }
-
 
     public fun render(batch: SpriteBatch) {
         val region = when {

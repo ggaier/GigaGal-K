@@ -26,9 +26,12 @@ internal val BACKGROUND_COLOR: Color = Color.SKY
 const val GIGAGAL_EYE_HEIGHT=16.0f
 internal val GIGAGAL_EYE_POSITION=Vector2(16f,24f)
 const val GIGAGAL_MOVING_SPEED=64f
+const val GIGAGAL_STANCE_WIDTH=21.0f
+
 const val GRAVITY:Float=1000f
 const val MAX_JUMP_DURATION:Float=.15f
 const val JUMP_SPEED:Float=250f
+
 
 const val PLATFORM_SPRITE="platform"
 const val PLATFORM_EDGE=8

@@ -9,8 +9,8 @@ import com.ggaier.gigagalk.gigagal.util.Assets
  */
 class Platform(val mLeft: Float, val mTop: Float, val mWidth: Float, val mHeight: Float) {
 
-    private val mBottom = mTop - mHeight
-    private val mRright = mLeft + mWidth
+    val mBottom = mTop - mHeight
+    val mRright = mLeft + mWidth
 
     fun render(batch: SpriteBatch) {
         Assets.mPlatformAssets.mPlatformNinePatch.draw(batch, mLeft - 1,
