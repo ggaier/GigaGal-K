@@ -19,6 +19,7 @@ object Assets : Disposable, AssetErrorListener {
     private var mAssetsManager: AssetManager = AssetManager()
     val mGigagalAssets: GigagalAsset
     val mPlatformAssets: PlatformAssets
+    val mEnemyAssets: EnemyAssets
 
     init {
         mAssetsManager.setErrorListener(this)
@@ -27,6 +28,7 @@ object Assets : Disposable, AssetErrorListener {
         val atlas: TextureAtlas = mAssetsManager.get(TEXTURE_ATLAS)
         mGigagalAssets = GigagalAsset(atlas)
         mPlatformAssets = PlatformAssets(atlas)
+        mEnemyAssets = EnemyAssets(atlas)
     }
 
     override fun error(asset: AssetDescriptor<*>?, throwable: Throwable?) {
@@ -78,6 +80,12 @@ object Assets : Disposable, AssetErrorListener {
             val edge = PLATFORM_EDGE
             mPlatformNinePatch = NinePatch(region, edge, edge, edge, edge)
         }
+    }
+
+    class EnemyAssets(atlas: TextureAtlas) {
+
+        val mEnemy: TextureAtlas.AtlasRegion = atlas.findRegion(ENEMY_SPRITE)
+
 
     }
 

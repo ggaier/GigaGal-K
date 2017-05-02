@@ -46,7 +46,9 @@ class GamePlayScreen : ScreenAdapter() {
 
         mBatch.projectionMatrix = mViewport.camera.combined
         mShapeRenderer.projectionMatrix = mViewport.camera.combined
+        mBatch.begin()
         mLevel.render(mBatch, mShapeRenderer)
+        mBatch.end()
     }
 
 

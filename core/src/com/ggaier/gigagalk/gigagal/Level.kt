@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.ggaier.gigagalk.gigagal.entity.Gigagal
 import com.ggaier.gigagalk.gigagal.entity.Platform
+import com.ggaier.gigagalk.gigagal.util.Assets
+import com.ggaier.gigagalk.gigagal.util.ENEMY_CENTER
+import com.ggaier.gigagalk.gigagal.util.Utils
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -28,6 +31,7 @@ class Level {
         mPlatforms.add(Platform(75f, 90f, 100f, 65f))
         mPlatforms.add(Platform(35f, 55f, 50f, 20f))
         mPlatforms.add(Platform(10f, 20f, 20f, 9f))
+
         mPlatforms.add(Platform(100f,110f,30f,9f))
         mPlatforms.add(Platform(200f,130f,30f,40f))
         mPlatforms.add(Platform(150f,150f,30f,9f))
@@ -42,15 +46,12 @@ class Level {
     }
 
     fun render(batch: SpriteBatch, renderer: ShapeRenderer) {
-        renderer.begin(ShapeRenderer.ShapeType.Filled)
-        renderer.end()
-
-        batch.begin()
         for (platform in mPlatforms) {
             platform.render(batch)
         }
+        Utils.drawTextureRegions(batch, Assets.mEnemyAssets.mEnemy, Vector2(100f,100f),
+                ENEMY_CENTER)
         mGigagal.render(batch)
-        batch.end()
     }
 
 }
