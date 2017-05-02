@@ -35,7 +35,7 @@ class GamePlayScreen : ScreenAdapter() {
 
     override fun render(delta: Float) {
         mLevel.update(delta)
-        mChaseCam.update()
+        mChaseCam.update(delta)
 
         mViewport.apply()
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r,

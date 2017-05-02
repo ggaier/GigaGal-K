@@ -35,7 +35,6 @@ class Level {
         mPlatforms.add(Platform(200f,200f,9f,9f))
         mPlatforms.add(Platform(280f,100f,30f,9f))
 
-
     }
 
     fun update(delta: Float) {
