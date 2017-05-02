@@ -28,6 +28,14 @@ class Level {
         mPlatforms.add(Platform(75f, 90f, 100f, 65f))
         mPlatforms.add(Platform(35f, 55f, 50f, 20f))
         mPlatforms.add(Platform(10f, 20f, 20f, 9f))
+        mPlatforms.add(Platform(100f,110f,30f,9f))
+        mPlatforms.add(Platform(200f,130f,30f,40f))
+        mPlatforms.add(Platform(150f,150f,30f,9f))
+        mPlatforms.add(Platform(150f,180f,30f,9f))
+        mPlatforms.add(Platform(200f,200f,9f,9f))
+        mPlatforms.add(Platform(280f,100f,30f,9f))
+
+
     }
 
     fun update(delta: Float) {
