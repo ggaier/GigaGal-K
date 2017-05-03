@@ -66,8 +66,8 @@ class RectangleCircleCollisionScreen : ScreenAdapter() {
                     }
                 }
 
-        for(oscillatingCircle in mCircles){
-            val circle =oscillatingCircle.getCurrentCircle(elapsedTime)
+        mCircles.forEach {
+            val circle =it.getCurrentCircle(elapsedTime)
             val colliding= mRectangles.any { areColliding(it,circle) }
             if (colliding) {
                 mShapeRenderer.setColor(1f, 0f, 0f, 1f)
@@ -76,7 +76,7 @@ class RectangleCircleCollisionScreen : ScreenAdapter() {
             }
             mShapeRenderer.circle(circle.x,circle.y,circle.radius,CIRCLE_SEGMENT)
         }
-
+        
         mShapeRenderer.end()
 
     }
