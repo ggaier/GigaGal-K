@@ -2,9 +2,8 @@ package com.ggaier.gigagalk.gigagal.entity
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
-import com.ggaier.gigagalk.gigagal.util.Assets
-import com.ggaier.gigagalk.gigagal.util.ENEMY_CENTER
-import com.ggaier.gigagalk.gigagal.util.Utils
+import com.badlogic.gdx.utils.TimeUtils
+import com.ggaier.gigagalk.gigagal.util.*
 
 /**
  * Created by ggaier
@@ -14,9 +13,22 @@ class Enemy(val mPlatform: Platform){
 
     val mPosition:Vector2= Vector2(mPlatform.mLeft,
             mPlatform.mTop+ ENEMY_CENTER.y)
+    private var mDirection:Enums.Direction=Enums.Direction.RIGHT;
+    private val mStartTime=TimeUtils.nanoTime()
 
     fun update(delta:Float){
+        when (mDirection) {
+            Enums.Direction.RIGHT -> mPosition.x +=delta* ENEMY_MOVING_SPEED
+            Enums.Direction.LEFT -> mPosition.x -= delta* ENEMY_MOVING_SPEED
+        }
 
+        if(mPosition.x<mPlatform.mLeft){
+            mPosition.x=mPlatform.mLeft
+            mDirection=Enums.Direction.RIGHT
+        }else if(mPosition.x > mPlatform.mRright) {
+            mPosition.x=mPlatform.mRright;
+            mDirection=Enums.Direction.LEFT
+        }
     }
 
     /**

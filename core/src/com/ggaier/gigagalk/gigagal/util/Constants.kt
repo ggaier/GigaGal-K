@@ -42,3 +42,4 @@ internal val KILLING_PANE = -100f
 internal const val CHASE_CAM_MOVING_SPEED = 128f
 internal const val ENEMY_SPRITE = "enemy"
 internal val ENEMY_CENTER = Vector2(14f, 22f)
+internal const val ENEMY_MOVING_SPEED=10f

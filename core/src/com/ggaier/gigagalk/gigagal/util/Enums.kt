@@ -21,5 +21,9 @@ class Enums {
         WALKING
     }
 
+    enum class Direction{
+        RIGHT,
+        LEFT
+    }
 
 }
