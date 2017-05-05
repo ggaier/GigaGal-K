@@ -76,7 +76,7 @@ class RectangleCircleCollisionScreen : ScreenAdapter() {
             }
             mShapeRenderer.circle(circle.x,circle.y,circle.radius,CIRCLE_SEGMENT)
         }
-        
+
         mShapeRenderer.end()
 
     }

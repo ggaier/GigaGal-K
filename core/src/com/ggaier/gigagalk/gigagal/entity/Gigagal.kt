@@ -7,13 +7,14 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.TimeUtils
+import com.ggaier.gigagalk.gigagal.Level
 import com.ggaier.gigagalk.gigagal.util.*
 
 /**
  * Created by ggaier at 20/04/2017 .
  * jwenbo52@gmail.com
  */
-class Gigagal(val mSpawnLocation: Vector2) {
+class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
 
     private val mVelocity: Vector2 = Vector2()
     private val mLastFramePosition: Vector2 = Vector2()
