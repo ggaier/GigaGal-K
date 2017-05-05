@@ -24,7 +24,7 @@ class Level {
     init {
         //        mPlatforms.add(Platform(70f, 30f, 20f, 20f))
         addDebugPlatforms()
-        mGigagal = Gigagal(Vector2(15f, 40f))
+        mGigagal = Gigagal(Vector2(15f, 40f),this)
     }
 
     private fun addDebugPlatforms() {

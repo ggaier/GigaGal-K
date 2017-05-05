@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.TimeUtils
@@ -64,6 +65,9 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
                 }
             }
         }
+
+        isCollideWithEnemies()
+
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
             when (mJumpState) {
                 Enums.JumpState.GROUNDED -> startJump()
@@ -79,6 +83,24 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             moveRight(delta)
         } else {
             mWalkingState = Enums.WalkingState.STANDING
+        }
+    }
+
+    private fun isCollideWithEnemies() {
+        val rectangleBounds=Rectangle(mPosition.x- GIGAGAL_STANCE_WIDTH/2,
+                mPosition.y- GIGAGAL_EYE_HEIGHT, GIGAGAL_STANCE_WIDTH,
+                GIGAGAL_HEIGHT)
+        mLevel.mEnemies.forEach {
+            val enemyBounds=Rectangle(it.mPosition.x- ENEMY_COLLISION_RADIUS,
+                    it.mPosition.y- ENEMY_COLLISION_RADIUS,
+                    2* ENEMY_COLLISION_RADIUS,2* ENEMY_COLLISION_RADIUS)
+            if(rectangleBounds.overlaps(enemyBounds)){
+                if(mPosition.x<it.mPosition.x){
+                    Gdx.app.log("Gigagal","Hit an enemy from left")
+                }else{
+                    Gdx.app.log("Gigagal","Hit an enemy from right")
+                }
+            }
         }
     }
 
