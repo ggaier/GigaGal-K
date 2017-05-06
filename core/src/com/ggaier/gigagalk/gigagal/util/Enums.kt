@@ -13,7 +13,8 @@ class Enums {
     enum class JumpState {
         JUMPING,
         FALLING,
-        GROUNDED
+        GROUNDED,
+        RECOILING
     }
 
     enum class WalkingState {

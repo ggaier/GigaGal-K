@@ -50,17 +50,14 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             init()
         }
         if (mJumpState != Enums.JumpState.JUMPING) {
-            mJumpState = Enums.JumpState.FALLING
-            //            if (mPosition.y - GIGAGAL_EYE_HEIGHT < 0) {
-            //                mJumpState = JumpState.GROUNDED
-            //                mPosition.y = GIGAGAL_EYE_HEIGHT
-            //                mVelocity.y = 0f
-            //            }
-
+            if (mJumpState != Enums.JumpState.RECOILING) {
+                mJumpState = Enums.JumpState.FALLING
+            }
             platforms.forEach {
                 if (landedOnPlatform(it)) {
                     mJumpState = Enums.JumpState.GROUNDED
                     mVelocity.y = 0f
+                    mVelocity.x = 0f
                     mPosition.y = it.mTop + GIGAGAL_EYE_HEIGHT
                 }
             }
@@ -77,12 +74,14 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             endJump()
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            moveLeft(delta)
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            moveRight(delta)
-        } else {
-            mWalkingState = Enums.WalkingState.STANDING
+        if (mJumpState != Enums.JumpState.RECOILING) {
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                moveLeft(delta)
+            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                moveRight(delta)
+            } else {
+                mWalkingState = Enums.WalkingState.STANDING
+            }
         }
     }
 
@@ -105,9 +104,10 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     }
 
     private fun recoilFromEnemy(direction: Enums.Direction) {
+        mJumpState = Enums.JumpState.RECOILING
         mVelocity.y = KNOCK_BACK_VELOCITY.y
         mVelocity.x = if (direction == Enums.Direction.LEFT) -KNOCK_BACK_VELOCITY.x
-            else KNOCK_BACK_VELOCITY.x
+        else KNOCK_BACK_VELOCITY.x
     }
 
     fun landedOnPlatform(platform: Platform): Boolean {

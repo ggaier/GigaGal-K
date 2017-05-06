@@ -9,7 +9,7 @@ import java.util.*
 
 object DesktopLauncher {
     @JvmStatic fun main(arg: Array<String>) {
-        var applicationListener: ApplicationListener? = null
+        var applicationListener: ApplicationListener?=null
         while (true) {
             println("Input which game you want start: " + Arrays.toString(Games.values()))
             val input = readLine()?.trim()
@@ -21,9 +21,10 @@ object DesktopLauncher {
                     println("Cannot find the Game $input to start, try again. ")
                 }
             }
-            if (applicationListener != null)
+            if(applicationListener!=null)
                 break
         }
+
         LwjglApplication(applicationListener, LwjglApplicationConfiguration())
     }
 
