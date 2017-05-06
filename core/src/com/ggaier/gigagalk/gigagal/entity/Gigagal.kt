@@ -87,21 +87,27 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     }
 
     private fun isCollideWithEnemies() {
-        val rectangleBounds=Rectangle(mPosition.x- GIGAGAL_STANCE_WIDTH/2,
-                mPosition.y- GIGAGAL_EYE_HEIGHT, GIGAGAL_STANCE_WIDTH,
+        val rectangleBounds = Rectangle(mPosition.x - GIGAGAL_STANCE_WIDTH / 2,
+                mPosition.y - GIGAGAL_EYE_HEIGHT, GIGAGAL_STANCE_WIDTH,
                 GIGAGAL_HEIGHT)
         mLevel.mEnemies.forEach {
-            val enemyBounds=Rectangle(it.mPosition.x- ENEMY_COLLISION_RADIUS,
-                    it.mPosition.y- ENEMY_COLLISION_RADIUS,
-                    2* ENEMY_COLLISION_RADIUS,2* ENEMY_COLLISION_RADIUS)
-            if(rectangleBounds.overlaps(enemyBounds)){
-                if(mPosition.x<it.mPosition.x){
-                    Gdx.app.log("Gigagal","Hit an enemy from left")
-                }else{
-                    Gdx.app.log("Gigagal","Hit an enemy from right")
+            val enemyBounds = Rectangle(it.mPosition.x - ENEMY_COLLISION_RADIUS,
+                    it.mPosition.y - ENEMY_COLLISION_RADIUS,
+                    2 * ENEMY_COLLISION_RADIUS, 2 * ENEMY_COLLISION_RADIUS)
+            if (rectangleBounds.overlaps(enemyBounds)) {
+                if (mPosition.x < it.mPosition.x) {
+                    recoilFromEnemy(Enums.Direction.LEFT)
+                } else {
+                    recoilFromEnemy(Enums.Direction.RIGHT)
                 }
             }
         }
+    }
+
+    private fun recoilFromEnemy(direction: Enums.Direction) {
+        mVelocity.y = KNOCK_BACK_VELOCITY.y
+        mVelocity.x = if (direction == Enums.Direction.LEFT) -KNOCK_BACK_VELOCITY.x
+            else KNOCK_BACK_VELOCITY.x
     }
 
     fun landedOnPlatform(platform: Platform): Boolean {

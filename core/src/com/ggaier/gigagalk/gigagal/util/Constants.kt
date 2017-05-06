@@ -33,6 +33,7 @@ const val GIGAGAL_STANCE_WIDTH = 21.0f
 const val GRAVITY: Float = 1000f
 const val MAX_JUMP_DURATION: Float = .15f
 const val JUMP_SPEED: Float = 250f
+val KNOCK_BACK_VELOCITY=Vector2(200f,200f)
 
 
 const val PLATFORM_SPRITE = "platform"
