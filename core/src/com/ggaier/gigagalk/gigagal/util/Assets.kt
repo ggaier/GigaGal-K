@@ -20,6 +20,9 @@ object Assets : Disposable, AssetErrorListener {
     val mGigagalAssets: GigagalAsset
     val mPlatformAssets: PlatformAssets
     val mEnemyAssets: EnemyAssets
+    val mBulletAssets: BulletAssets
+    val mExplosionAssets: ExplosionAssets
+    val mPowerupAssets: PowerupAssets
 
     init {
         mAssetsManager.setErrorListener(this)
@@ -29,6 +32,9 @@ object Assets : Disposable, AssetErrorListener {
         mGigagalAssets = GigagalAsset(atlas)
         mPlatformAssets = PlatformAssets(atlas)
         mEnemyAssets = EnemyAssets(atlas)
+        mBulletAssets = BulletAssets(atlas)
+        mExplosionAssets = ExplosionAssets(atlas)
+        mPowerupAssets = PowerupAssets(atlas)
     }
 
     override fun error(asset: AssetDescriptor<*>?, throwable: Throwable?) {
@@ -87,8 +93,26 @@ object Assets : Disposable, AssetErrorListener {
         val mEnemy: TextureAtlas.AtlasRegion = atlas.findRegion(ENEMY_SPRITE)
     }
 
-    class BulletAssets(atlas: TextureAtlas){
-        val mBullet=atlas.findRegion(BULLET_SPRITE)
+    class BulletAssets(atlas: TextureAtlas) {
+        val mBullet = atlas.findRegion(BULLET_SPRITE)
+    }
+
+    class ExplosionAssets(atlas: TextureAtlas) {
+        val mExplosion: Animation<TextureAtlas.AtlasRegion>
+
+        init {
+            val explosionRegions = Array<TextureAtlas.AtlasRegion>()
+            explosionRegions.add(atlas.findRegion(EXPLOSION_LARGE))
+            explosionRegions.add(atlas.findRegion(EXPLOSION_MEDIUM))
+            explosionRegions.add(atlas.findRegion(EXPLOSION_SMALL))
+            mExplosion = Animation(EXPLOSION_DURATION / explosionRegions.size, explosionRegions,
+                    Animation.PlayMode.NORMAL)
+        }
+
+    }
+
+    class PowerupAssets(atlas: TextureAtlas) {
+        val mPowerup = atlas.findRegion(POWERUP_SPRITE)
     }
 
 }
