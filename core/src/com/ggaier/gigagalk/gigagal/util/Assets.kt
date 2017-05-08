@@ -85,8 +85,10 @@ object Assets : Disposable, AssetErrorListener {
     class EnemyAssets(atlas: TextureAtlas) {
 
         val mEnemy: TextureAtlas.AtlasRegion = atlas.findRegion(ENEMY_SPRITE)
+    }
 
-
+    class BulletAssets(atlas: TextureAtlas){
+        val mBullet=atlas.findRegion(BULLET_SPRITE)
     }
 
 }

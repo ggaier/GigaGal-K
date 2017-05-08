@@ -48,3 +48,6 @@ internal const val ENEMY_MOVING_SPEED=10f
 internal const val ENEMY_BOB_PERIOD=3.0f
 internal const val ENEMY_BOB_AMPLITUDE=2f
 internal const val ENEMY_COLLISION_RADIUS=15f
+
+internal const val BULLET_SPRITE="bullet"
+internal val BULLET_CENTER=Vector2(3f,2f)
