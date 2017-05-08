@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.DelayedRemovalArray
 import com.ggaier.gigagalk.gigagal.entity.Enemy
 import com.ggaier.gigagalk.gigagal.entity.Gigagal
 import com.ggaier.gigagalk.gigagal.entity.Platform
+import com.ggaier.gigagalk.gigagal.util.*
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -57,6 +58,27 @@ class Level {
             enemy.render(batch)
         }
         mGigagal.render(batch)
-    }
 
+        Utils.drawTextureRegions(batch,Assets.mBulletAssets.mBullet,
+                Vector2(0f,0f),
+                BULLET_CENTER)
+
+        Utils.drawTextureRegions(batch,Assets.mPowerupAssets.mPowerup,
+                Vector2(20f,0f), POWERUP_CENTER)
+
+        Utils.drawTextureRegions(batch,Assets.mExplosionAssets.mExplosion.getKeyFrame(0f),
+                Vector2(40f,0f),
+                EXPLOSION_CENTER)
+
+        Utils.drawTextureRegions(batch,Assets.mExplosionAssets.mExplosion.getKeyFrame(
+                EXPLOSION_DURATION*0.5f),
+                Vector2(60f,0f),
+                EXPLOSION_CENTER)
+
+        Utils.drawTextureRegions(batch,Assets.mExplosionAssets.mExplosion.getKeyFrame(
+                EXPLOSION_DURATION*0.75f),
+                Vector2(80f,0f),
+                EXPLOSION_CENTER)
+
+    }
 }
