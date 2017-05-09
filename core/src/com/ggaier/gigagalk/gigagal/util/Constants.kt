@@ -51,6 +51,7 @@ internal const val ENEMY_COLLISION_RADIUS=15f
 
 internal const val BULLET_SPRITE="bullet"
 internal val BULLET_CENTER=Vector2(3f,2f)
+internal val BULLET_MOVE_SPEED=150f
 
 internal const val EXPLOSION_LARGE="explosion-large"
 internal const val EXPLOSION_MEDIUM="explosion-medium"
@@ -60,3 +61,5 @@ internal val EXPLOSION_CENTER=Vector2(8f,8f)
 
 internal const val POWERUP_SPRITE="powerup"
 internal val POWERUP_CENTER=Vector2(7f,5f)
+
+internal val GIGAGAL_CANNON_OFFSET=Vector2(12f,-7f)

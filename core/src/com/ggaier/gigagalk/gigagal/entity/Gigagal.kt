@@ -21,7 +21,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     private val mLastFramePosition: Vector2 = Vector2()
     val mPosition: Vector2 = Vector2()
 
-    private var mFacing: Enums.Facing = Enums.Facing.RIGHT
+    private var mFacing: Enums.Direction = Enums.Direction.RIGHT
     private var mJumpState = Enums.JumpState.FALLING
     private var mWalkingState: Enums.WalkingState = Enums.WalkingState.STANDING
 
@@ -37,7 +37,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         mLastFramePosition.set(mSpawnLocation)
         mVelocity.setZero()
         mJumpState = Enums.JumpState.FALLING
-        mFacing = Enums.Facing.RIGHT
+        mFacing = Enums.Direction.RIGHT
         mWalkingState = Enums.WalkingState.STANDING
     }
 
@@ -82,6 +82,21 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             } else {
                 mWalkingState = Enums.WalkingState.STANDING
             }
+        }
+
+        shootBulletIfKeyPressed()
+    }
+
+    private fun shootBulletIfKeyPressed() {
+        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+            val bulletPosition = if (mFacing == Enums.Direction.LEFT) {
+                Vector2(mPosition.x - GIGAGAL_CANNON_OFFSET.x,
+                        mPosition.x + GIGAGAL_CANNON_OFFSET.y)
+            } else {
+                Vector2(mPosition.x + GIGAGAL_CANNON_OFFSET.x,
+                        mPosition.y + GIGAGAL_CANNON_OFFSET.y)
+            }
+            mLevel.spawnBullet(bulletPosition,mFacing)
         }
     }
 
@@ -131,14 +146,14 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         }
         mWalkingState = Enums.WalkingState.WALKING
         mPosition.x -= delta * GIGAGAL_MOVING_SPEED
-        mFacing = Enums.Facing.LEFT
+        mFacing = Enums.Direction.LEFT
     }
 
     private fun moveRight(delta: Float) {
         if (mJumpState == Enums.JumpState.GROUNDED && mWalkingState != Enums.WalkingState.WALKING) {
             mWalkStartTime = TimeUtils.nanoTime()
         }
-        mFacing = Enums.Facing.RIGHT
+        mFacing = Enums.Direction.RIGHT
         mWalkingState = Enums.WalkingState.WALKING
         mPosition.x += delta * GIGAGAL_MOVING_SPEED
     }
@@ -168,19 +183,19 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
 
     fun render(batch: SpriteBatch) {
         val region = when {
-            mFacing == Enums.Facing.RIGHT && mJumpState != Enums.JumpState.GROUNDED ->
+            mFacing == Enums.Direction.RIGHT && mJumpState != Enums.JumpState.GROUNDED ->
                 Assets.mGigagalAssets.mJumpingRight
-            mFacing == Enums.Facing.RIGHT && mWalkingState == Enums.WalkingState.STANDING ->
+            mFacing == Enums.Direction.RIGHT && mWalkingState == Enums.WalkingState.STANDING ->
                 Assets.mGigagalAssets.mStandRight
-            mFacing == Enums.Facing.RIGHT && mWalkingState == Enums.WalkingState.WALKING -> {
+            mFacing == Enums.Direction.RIGHT && mWalkingState == Enums.WalkingState.WALKING -> {
                 val walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime)
                 Assets.mGigagalAssets.mWalkingRightAnimation.getKeyFrame(walkTimeSeconds)
             }
-            mFacing == Enums.Facing.LEFT && mJumpState != Enums.JumpState.GROUNDED ->
+            mFacing == Enums.Direction.LEFT && mJumpState != Enums.JumpState.GROUNDED ->
                 Assets.mGigagalAssets.mJumpingLeft
-            mFacing == Enums.Facing.LEFT && mWalkingState == Enums.WalkingState.STANDING ->
+            mFacing == Enums.Direction.LEFT && mWalkingState == Enums.WalkingState.STANDING ->
                 Assets.mGigagalAssets.mStandLeft
-            mFacing == Enums.Facing.LEFT && mWalkingState == Enums.WalkingState.WALKING -> {
+            mFacing == Enums.Direction.LEFT && mWalkingState == Enums.WalkingState.WALKING -> {
                 val walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime)
                 Assets.mGigagalAssets.mWalkingLeftAnimation.getKeyFrame(walkTimeSeconds)
             }

@@ -27,7 +27,7 @@ class GamePlayScreen : ScreenAdapter() {
     override fun show() {
         mBatch = SpriteBatch()
         mViewport = ExtendViewport(WORLD_SIZE, WORLD_SIZE)
-        mLevel = Level()
+        mLevel = Level(mViewport)
         mShapeRenderer = ShapeRenderer()
         mShapeRenderer.setAutoShapeType(true)
         mChaseCam = ChaseCam(mViewport.camera, mLevel.mGigagal)
@@ -47,7 +47,7 @@ class GamePlayScreen : ScreenAdapter() {
         mBatch.projectionMatrix = mViewport.camera.combined
         mShapeRenderer.projectionMatrix = mViewport.camera.combined
         mBatch.begin()
-        mLevel.render(mBatch, mShapeRenderer)
+        mLevel.render(mBatch)
         mBatch.end()
     }
 

@@ -6,7 +6,7 @@ package com.ggaier.gigagalk.gigagal.util
  */
 class Enums {
 
-    enum class Facing {
+    enum class Direction {
         LEFT, RIGHT
     }
 
@@ -20,11 +20,6 @@ class Enums {
     enum class WalkingState {
         STANDING,
         WALKING
-    }
-
-    enum class Direction{
-        RIGHT,
-        LEFT
     }
 
 }

@@ -22,7 +22,6 @@ class Enemy(val mPlatform: Platform) {
             Enums.Direction.RIGHT -> mPosition.x += delta * ENEMY_MOVING_SPEED
             Enums.Direction.LEFT -> mPosition.x -= delta * ENEMY_MOVING_SPEED
         }
-
         if (mPosition.x < mPlatform.mLeft) {
             mPosition.x = mPlatform.mLeft
             mDirection = Enums.Direction.RIGHT
