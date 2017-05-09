@@ -88,7 +88,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     }
 
     private fun shootBulletIfKeyPressed() {
-        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             val bulletPosition = if (mFacing == Enums.Direction.LEFT) {
                 Vector2(mPosition.x - GIGAGAL_CANNON_OFFSET.x,
                         mPosition.x + GIGAGAL_CANNON_OFFSET.y)
