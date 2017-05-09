@@ -21,7 +21,8 @@ class Bullet(val mLevel: Level, val mPosition: Vector2, val mDirection: Enums.Di
         val worldWidth = mLevel.mViewport.worldWidth
         val cameraCenterX = mLevel.mViewport.camera.position.x
 
-        //todo: 不理解
+        //由于ExtendViewport是按照World的比例来扩展的，所以会导致有可能
+        // x轴并没有撑满整个Viewport。
         if (mPosition.x < cameraCenterX - worldWidth / 2||mPosition.x>
                 cameraCenterX+worldWidth/2) {
             mActive=false
