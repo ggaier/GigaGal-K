@@ -91,12 +91,12 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             val bulletPosition = if (mFacing == Enums.Direction.LEFT) {
                 Vector2(mPosition.x - GIGAGAL_CANNON_OFFSET.x,
-                        mPosition.x + GIGAGAL_CANNON_OFFSET.y)
+                        mPosition.y + GIGAGAL_CANNON_OFFSET.y)
             } else {
                 Vector2(mPosition.x + GIGAGAL_CANNON_OFFSET.x,
                         mPosition.y + GIGAGAL_CANNON_OFFSET.y)
             }
-            mLevel.spawnBullet(bulletPosition,mFacing)
+            mLevel.spawnBullet(bulletPosition, mFacing)
         }
     }
 
