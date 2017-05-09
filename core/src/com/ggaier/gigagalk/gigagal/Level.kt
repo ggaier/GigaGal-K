@@ -1,7 +1,6 @@
 package com.ggaier.gigagalk.gigagal
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.DelayedRemovalArray
@@ -49,16 +48,14 @@ class Level(val mViewport: Viewport) {
 
     fun update(delta: Float) {
         mGigagal.update(delta, mPlatforms)
-
-        var direction: Enums.Direction = if (MathUtils.randomBoolean()) Enums.Direction.RIGHT
-        else Enums.Direction.LEFT
-
-        val x = MathUtils.random(mViewport.worldWidth)
-        val y = MathUtils.random(mViewport.worldHeight)
-        val position=Vector2(x,y)
-        spawnBullet(position,direction)
-
-        mBullets.forEach { it.update(delta) }
+        mBullets.begin()
+        mBullets.forEach {
+            it.update(delta)
+            if(!it.mActive){
+                mBullets.removeValue(it,false)
+            }
+        }
+        mBullets.end()
         mEnemies.forEach { it.update(delta) }
     }
 

@@ -10,6 +10,8 @@ import com.ggaier.gigagalk.gigagal.util.*
  */
 class Bullet(val mPosition: Vector2, val mDirection: Enums.Direction) {
 
+    val mActive:Boolean=true
+
     fun update(delta: Float) {
         when (mDirection) {
             Enums.Direction.LEFT -> mPosition.x -= delta * BULLET_MOVE_SPEED
