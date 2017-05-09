@@ -83,7 +83,6 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
                 mWalkingState = Enums.WalkingState.STANDING
             }
         }
-
         shootBulletIfKeyPressed()
     }
 

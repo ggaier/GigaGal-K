@@ -60,7 +60,7 @@ class Level(val mViewport: Viewport) {
     }
 
     fun spawnBullet(position: Vector2, direction: Enums.Direction) {
-        mBullets.add(Bullet(position,direction))
+        mBullets.add(Bullet(this,position,direction))
     }
 
     fun render(batch: SpriteBatch) {
