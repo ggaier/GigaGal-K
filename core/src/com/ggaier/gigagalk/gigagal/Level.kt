@@ -19,6 +19,7 @@ class Level(val mViewport: Viewport) {
     val mEnemies: DelayedRemovalArray<Enemy> = DelayedRemovalArray()
     val mBullets: DelayedRemovalArray<Bullet> = DelayedRemovalArray()
     val mExplosions:DelayedRemovalArray<Explosion> = DelayedRemovalArray()
+    val mPowerups:DelayedRemovalArray<Powerup> = DelayedRemovalArray()
 
     private val mPlatforms = Array<Platform>()
 
@@ -41,7 +42,7 @@ class Level(val mViewport: Viewport) {
         //        mPlatforms.add(Platform(150f, 180f, 30f, 9f))
         //        mPlatforms.add(Platform(200f, 200f, 9f, 9f))
         //        mPlatforms.add(Platform(280f, 100f, 30f, 9f))
-
+        mPowerups.add(Powerup(Vector2(20f,110f)))
     }
 
     fun update(delta: Float) {
@@ -88,6 +89,7 @@ class Level(val mViewport: Viewport) {
         mBullets.forEach { it.render(batch) }
         mEnemies.forEach { it.render(batch) }
         mExplosions.forEach { it.render(batch) }
+        mPowerups.forEach { it.render(batch)}
     }
 
     fun spawnExplosion(position :Vector2){

@@ -28,6 +28,8 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     private var mJumpStartTime: Long = Long.MIN_VALUE
     private var mWalkStartTime: Long = Long.MIN_VALUE
 
+    private var mAmmo = INTIAL_AMMO
+
     init {
         init()
     }
@@ -39,6 +41,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         mJumpState = Enums.JumpState.FALLING
         mFacing = Enums.Direction.RIGHT
         mWalkingState = Enums.WalkingState.STANDING
+        mAmmo = INTIAL_AMMO
     }
 
 
@@ -63,7 +66,10 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             }
         }
 
-        isCollideWithEnemies()
+        val gigagalBounds = Rectangle(mPosition.x - GIGAGAL_STANCE_WIDTH / 2,
+                mPosition.y - GIGAGAL_EYE_HEIGHT, GIGAGAL_STANCE_WIDTH,
+                GIGAGAL_HEIGHT)
+        isCollideWithEnemies(gigagalBounds)
 
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
             when (mJumpState) {
@@ -84,10 +90,27 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             }
         }
         shootBulletIfKeyPressed()
+        collectPowerups(gigagalBounds)
+    }
+
+    private fun collectPowerups(gigagalBounds: Rectangle) {
+        mLevel.mPowerups.begin()
+        mLevel.mPowerups.forEach {
+            val powerupBounds = Rectangle(it.mPosition.x - POWERUP_CENTER.x,
+                    it.mPosition.y - POWERUP_CENTER.y,
+                    Assets.mPowerupAssets.mPowerup.regionWidth.toFloat(),
+                    Assets.mPowerupAssets.mPowerup.regionHeight.toFloat())
+            if (gigagalBounds.overlaps(powerupBounds)) {
+                mLevel.mPowerups.removeValue(it, false)
+                mAmmo += POWERUP_AMMO
+            }
+        }
+        mLevel.mPowerups.end()
     }
 
     private fun shootBulletIfKeyPressed() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && mAmmo > 0) {
+            mAmmo--
             val bulletPosition = if (mFacing == Enums.Direction.LEFT) {
                 Vector2(mPosition.x - GIGAGAL_CANNON_OFFSET.x,
                         mPosition.y + GIGAGAL_CANNON_OFFSET.y)
@@ -99,10 +122,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         }
     }
 
-    private fun isCollideWithEnemies() {
-        val rectangleBounds = Rectangle(mPosition.x - GIGAGAL_STANCE_WIDTH / 2,
-                mPosition.y - GIGAGAL_EYE_HEIGHT, GIGAGAL_STANCE_WIDTH,
-                GIGAGAL_HEIGHT)
+    private fun isCollideWithEnemies(rectangleBounds: Rectangle) {
         mLevel.mEnemies.forEach {
             val enemyBounds = Rectangle(it.mPosition.x - ENEMY_COLLISION_RADIUS,
                     it.mPosition.y - ENEMY_COLLISION_RADIUS,
