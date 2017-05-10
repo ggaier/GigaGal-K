@@ -5,10 +5,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.DelayedRemovalArray
 import com.badlogic.gdx.utils.viewport.Viewport
-import com.ggaier.gigagalk.gigagal.entity.Bullet
-import com.ggaier.gigagalk.gigagal.entity.Enemy
-import com.ggaier.gigagalk.gigagal.entity.Gigagal
-import com.ggaier.gigagalk.gigagal.entity.Platform
+import com.ggaier.gigagalk.gigagal.entity.*
 import com.ggaier.gigagalk.gigagal.util.Enums
 
 /**
@@ -21,6 +18,7 @@ class Level(val mViewport: Viewport) {
     val mGigagal: Gigagal
     val mEnemies: DelayedRemovalArray<Enemy> = DelayedRemovalArray()
     val mBullets: DelayedRemovalArray<Bullet> = DelayedRemovalArray()
+    val mExplosions:DelayedRemovalArray<Explosion> = DelayedRemovalArray()
 
     private val mPlatforms = Array<Platform>()
 
@@ -61,9 +59,18 @@ class Level(val mViewport: Viewport) {
             it.update(delta)
             if(it.mHealth<1){
                 mEnemies.removeValue(it,false)
+                spawnExplosion(it.mPosition)
             }
         }
         mEnemies.end()
+
+        mExplosions.begin()
+        mExplosions.forEach {
+            if(it.isFinished()){
+                mExplosions.removeValue(it,false)
+            }
+        }
+        mExplosions.end()
     }
 
     fun spawnBullet(position: Vector2, direction: Enums.Direction) {
@@ -79,5 +86,10 @@ class Level(val mViewport: Viewport) {
         }
         mGigagal.render(batch)
         mBullets.forEach { it.render(batch) }
+        mEnemies.forEach { it.render(batch) }
+    }
+
+    fun spawnExplosion(position :Vector2){
+        mExplosions.add(Explosion(position))
     }
 }
