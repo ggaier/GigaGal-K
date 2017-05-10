@@ -87,6 +87,7 @@ class Level(val mViewport: Viewport) {
         mGigagal.render(batch)
         mBullets.forEach { it.render(batch) }
         mEnemies.forEach { it.render(batch) }
+        mExplosions.forEach { it.render(batch) }
     }
 
     fun spawnExplosion(position :Vector2){
