@@ -16,6 +16,7 @@ class Enemy(val mPlatform: Platform) {
             mPlatform.mTop + ENEMY_CENTER.y)
     private var mDirection: Enums.Direction = Enums.Direction.RIGHT;
     private val mStartTime = TimeUtils.nanoTime()
+    var mHealth= ENEMY_HEALTH
 
     fun update(delta: Float) {
         when (mDirection) {

@@ -56,7 +56,14 @@ class Level(val mViewport: Viewport) {
             }
         }
         mBullets.end()
-        mEnemies.forEach { it.update(delta) }
+        mEnemies.begin()
+        mEnemies.forEach {
+            it.update(delta)
+            if(it.mHealth<1){
+                mEnemies.removeValue(it,false)
+            }
+        }
+        mEnemies.end()
     }
 
     fun spawnBullet(position: Vector2, direction: Enums.Direction) {

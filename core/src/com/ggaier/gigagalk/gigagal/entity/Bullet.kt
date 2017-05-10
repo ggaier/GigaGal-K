@@ -27,6 +27,13 @@ class Bullet(val mLevel: Level, val mPosition: Vector2, val mDirection: Enums.Di
                 cameraCenterX+worldWidth/2) {
             mActive=false
         }
+
+        mLevel.mEnemies.forEach {
+            if(mPosition.dst(it.mPosition)< ENEMY_SHOT_RADIUS){
+                it.mHealth-=1
+                mActive=false
+            }
+        }
     }
 
     fun render(batch: SpriteBatch) {
