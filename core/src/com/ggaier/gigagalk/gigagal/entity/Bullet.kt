@@ -32,7 +32,7 @@ class Bullet(val mLevel: Level, val mPosition: Vector2, val mDirection: Enums.Di
             if(mPosition.dst(it.mPosition)< ENEMY_SHOT_RADIUS){
                 it.mHealth-=1
                 mActive=false
-                mLevel.spawnExplosion(it.mPosition)
+                mLevel.spawnExplosion(mPosition)
             }
         }
     }
