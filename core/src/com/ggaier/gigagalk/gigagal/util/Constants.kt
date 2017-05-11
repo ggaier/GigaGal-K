@@ -70,4 +70,16 @@ internal const val POWERUP_SPRITE="powerup"
 internal val POWERUP_CENTER=Vector2(7f,5f)
 internal const val POWERUP_AMMO=10
 
+//Level
+val LEVEL_COMPOSITE = "composite"
+val LEVEL_9PATCHES = "sImage9patchs"
+val LEVEL_IMAGES = "sImages"
+val LEVEL_ERROR_MESSAGE = "There was a problem loading the level."
+val LEVEL_IMAGENAME_KEY = "imageName"
+val LEVEL_X_KEY = "x"
+val LEVEL_Y_KEY = "y"
+val LEVEL_WIDTH_KEY = "width"
+val LEVEL_HEIGHT_KEY = "height"
+val LEVEL_IDENTIFIER_KEY = "itemIdentifier"
+val LEVEL_ENEMY_TAG = "Enemy"
 
