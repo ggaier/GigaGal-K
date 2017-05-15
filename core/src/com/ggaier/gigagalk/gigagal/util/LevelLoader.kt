@@ -3,6 +3,8 @@ package com.ggaier.gigagalk.gigagal.util
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ggaier.gigagalk.gigagal.Level
+import com.ggaier.gigagalk.gigagal.entity.Enemy
+import com.ggaier.gigagalk.gigagal.entity.Platform
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
@@ -27,8 +29,8 @@ class LevelLoader {
             val path = "levels${File.separator}$levelName.json"
             Gdx.app.log(TAG, "path $path")
             val file = Gdx.files.internal(path)
+            val parser = JSONParser()
             try {
-                val parser = JSONParser()
                 val rootJsonObject: JSONObject = parser.parse(file.reader()) as JSONObject
                 Gdx.app.log(TAG, rootJsonObject.keys.toString())
 
@@ -36,6 +38,9 @@ class LevelLoader {
                 Gdx.app.log(TAG, composite.keys.toString())
 
                 val platforms: JSONArray = composite[LEVEL_9PATCHES] as JSONArray
+
+                loadPlatForms(platforms, level)
+
                 val firstPlatform: JSONObject = platforms[0] as JSONObject
                 Gdx.app.log(TAG, firstPlatform.keys.toString())
             } catch(e: Exception) {
@@ -43,6 +48,42 @@ class LevelLoader {
                 Gdx.app.error(TAG, LEVEL_ERROR_MESSAGE)
             }
             return level
+        }
+
+        private fun loadPlatForms(platforms: JSONArray, level: Level) {
+            val platformArray = Array(platforms.size, { index ->
+                {
+                    val platformObject = platforms[index] as JSONObject
+                    val x = safeGetFloat(platformObject, LEVEL_X_KEY)
+                    val y = safeGetFloat(platformObject, LEVEL_Y_KEY)
+                    val width = (platformObject[LEVEL_WIDTH_KEY] as? Number)?.toFloat() ?: 0f
+                    val height = (platformObject[LEVEL_HEIGHT_KEY] as? Number)?.toFloat() ?: 0f
+
+                    Gdx.app.log(TAG,
+                            "Loaded pa platform at x= $x, y=${y + height}, w= $width, h= " +
+                                    "$height")
+                    val platform = Platform(x, y + height, width, height)
+                    val identifier = platformObject[LEVEL_IDENTIFIER_KEY] as String
+                    if (identifier != null && identifier.equals(LEVEL_ENEMY_TAG)) {
+                        level.mEnemies.add(Enemy(platform))
+                    }
+                    platform
+                }
+            })
+
+            platformArray.sortWith(compareBy {
+                object : Comparable<Platform> {
+                    override fun compareTo(other: Platform): Int {
+
+                    }
+                }
+            })
+
+        }
+
+        private fun safeGetFloat(jsonObject: JSONObject, key: String): Float {
+            val number: Number? = jsonObject[key] as? Number
+            return number?.toFloat() ?: 0f
         }
 
 
