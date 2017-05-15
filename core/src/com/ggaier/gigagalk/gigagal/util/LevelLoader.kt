@@ -45,7 +45,7 @@ class LevelLoader {
             return level
         }
 
-        
+
     }
 
 }
