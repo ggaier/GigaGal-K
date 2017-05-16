@@ -54,8 +54,9 @@ class LevelLoader {
             //* A lambda expression is always surrounded by curly braces
             //* Its parameter(if any) are declared before '->'(parameter types may be omitted).
             //* The body goes after '->' (when present)
-            val platformArray = Array(platforms.size, { index ->
-                val platformObject = platforms[index] as JSONObject
+            val platformAry = com.badlogic.gdx.utils.Array<Platform>()
+            platforms.forEach {
+                val platformObject = it as JSONObject
                 val x = safeGetFloat(platformObject, LEVEL_X_KEY)
                 val y = safeGetFloat(platformObject, LEVEL_Y_KEY)
                 val width = (platformObject[LEVEL_WIDTH_KEY] as? Number)?.toFloat() ?: 0f
@@ -65,16 +66,17 @@ class LevelLoader {
                         "Loaded pa platform at x= $x, y=${y + height}, w= $width, h= " +
                                 "$height")
                 val platform = Platform(x, y + height, width, height)
+                platformAry.add(platform)
+
                 val identifier = platformObject[LEVEL_IDENTIFIER_KEY] as String
                 if (identifier != null && identifier.equals(LEVEL_ENEMY_TAG)) {
                     level.mEnemies.add(Enemy(platform))
                 }
-                platform
-            })
-            platformArray.sortWith(Comparator<Platform> compare@ { o1, o2 ->
+            }
+            platformAry.sort { o1, o2 ->
                 if (o1.mTop < o2.mTop) 1 else if (o1.mTop > o2.mTop) -1 else 0
-            })
-
+            }
+            level.mPlatforms.addAll(platformAry)
         }
 
         private fun safeGetFloat(jsonObject: JSONObject, key: String): Float {

@@ -21,7 +21,7 @@ class Level(val mViewport: Viewport) {
     val mExplosions:DelayedRemovalArray<Explosion> = DelayedRemovalArray()
     val mPowerups:DelayedRemovalArray<Powerup> = DelayedRemovalArray()
 
-    private val mPlatforms = Array<Platform>()
+    val mPlatforms = Array<Platform>()
 
     init {
         //        mPlatforms.add(Platform(70f, 30f, 20f, 20f))
