@@ -23,6 +23,7 @@ object Assets : Disposable, AssetErrorListener {
     val mBulletAssets: BulletAssets
     val mExplosionAssets: ExplosionAssets
     val mPowerupAssets: PowerupAssets
+    val mExitPortalAssets: ExitPortAssets
 
     init {
         mAssetsManager.setErrorListener(this)
@@ -35,6 +36,7 @@ object Assets : Disposable, AssetErrorListener {
         mBulletAssets = BulletAssets(atlas)
         mExplosionAssets = ExplosionAssets(atlas)
         mPowerupAssets = PowerupAssets(atlas)
+        mExitPortalAssets = ExitPortAssets(atlas)
     }
 
     override fun error(asset: AssetDescriptor<*>?, throwable: Throwable?) {
@@ -113,6 +115,22 @@ object Assets : Disposable, AssetErrorListener {
 
     class PowerupAssets(atlas: TextureAtlas) {
         val mPowerup = atlas.findRegion(POWERUP_SPRITE)
+    }
+
+    class ExitPortAssets(atlas: TextureAtlas) {
+        val mExitPortalAnimation: Animation<TextureAtlas.AtlasRegion>
+
+        init {
+            val exportFrames = Array<TextureAtlas.AtlasRegion>()
+            val ep1 = atlas.findRegion(EXIT_PORTAL_SPRITE_1)
+            val ep2 = atlas.findRegion(EXIT_PORTAL_SPRITE_2)
+            val ep3 = atlas.findRegion(EXIT_PORTAL_SPRITE_3)
+            val ep4 = atlas.findRegion(EXIT_PORTAL_SPRITE_4)
+            val ep5 = atlas.findRegion(EXIT_PORTAL_SPRITE_5)
+            val ep6 = atlas.findRegion(EXIT_PORTAL_SPRITE_6)
+            exportFrames.addAll(ep1, ep2, ep3, ep4, ep5, ep6)
+            mExitPortalAnimation = Animation(EXIT_PORTAL_FRAME_DURATION, exportFrames)
+        }
     }
 
 }

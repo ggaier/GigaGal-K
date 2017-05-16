@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.DelayedRemovalArray
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ggaier.gigagalk.gigagal.entity.*
+import com.ggaier.gigagalk.gigagal.util.EXIT_PORTAL_DEFAULT_LOCATION
 import com.ggaier.gigagalk.gigagal.util.Enums
 
 /**
@@ -18,15 +19,16 @@ class Level(val mViewport: Viewport) {
     val mGigagal: Gigagal
     val mEnemies: DelayedRemovalArray<Enemy> = DelayedRemovalArray()
     val mBullets: DelayedRemovalArray<Bullet> = DelayedRemovalArray()
-    val mExplosions:DelayedRemovalArray<Explosion> = DelayedRemovalArray()
-    val mPowerups:DelayedRemovalArray<Powerup> = DelayedRemovalArray()
+    val mExplosions: DelayedRemovalArray<Explosion> = DelayedRemovalArray()
+    val mPowerups: DelayedRemovalArray<Powerup> = DelayedRemovalArray()
 
+    val mExitPortal: ExitPortal
     val mPlatforms = Array<Platform>()
 
     init {
-        //        mPlatforms.add(Platform(70f, 30f, 20f, 20f))
-        initDebugLevel()
         mGigagal = Gigagal(Vector2(15f, 40f), this)
+        mExitPortal = ExitPortal(EXIT_PORTAL_DEFAULT_LOCATION)
+        initDebugLevel()
     }
 
     private fun initDebugLevel() {
@@ -42,7 +44,7 @@ class Level(val mViewport: Viewport) {
         //        mPlatforms.add(Platform(150f, 180f, 30f, 9f))
         //        mPlatforms.add(Platform(200f, 200f, 9f, 9f))
         //        mPlatforms.add(Platform(280f, 100f, 30f, 9f))
-        mPowerups.add(Powerup(Vector2(20f,110f)))
+        mPowerups.add(Powerup(Vector2(20f, 110f)))
     }
 
     fun update(delta: Float) {
@@ -50,16 +52,16 @@ class Level(val mViewport: Viewport) {
         mBullets.begin()
         mBullets.forEach {
             it.update(delta)
-            if(!it.mActive){
-                mBullets.removeValue(it,false)
+            if (!it.mActive) {
+                mBullets.removeValue(it, false)
             }
         }
         mBullets.end()
         mEnemies.begin()
         mEnemies.forEach {
             it.update(delta)
-            if(it.mHealth<1){
-                mEnemies.removeValue(it,false)
+            if (it.mHealth < 1) {
+                mEnemies.removeValue(it, false)
                 spawnExplosion(it.mPosition)
             }
         }
@@ -67,15 +69,15 @@ class Level(val mViewport: Viewport) {
 
         mExplosions.begin()
         mExplosions.forEach {
-            if(it.isFinished()){
-                mExplosions.removeValue(it,false)
+            if (it.isFinished()) {
+                mExplosions.removeValue(it, false)
             }
         }
         mExplosions.end()
     }
 
     fun spawnBullet(position: Vector2, direction: Enums.Direction) {
-        mBullets.add(Bullet(this,position,direction))
+        mBullets.add(Bullet(this, position, direction))
     }
 
     fun render(batch: SpriteBatch) {
@@ -89,10 +91,10 @@ class Level(val mViewport: Viewport) {
         mBullets.forEach { it.render(batch) }
         mEnemies.forEach { it.render(batch) }
         mExplosions.forEach { it.render(batch) }
-        mPowerups.forEach { it.render(batch)}
+        mPowerups.forEach { it.render(batch) }
     }
 
-    fun spawnExplosion(position :Vector2){
+    fun spawnExplosion(position: Vector2) {
         mExplosions.add(Explosion(position))
     }
 }

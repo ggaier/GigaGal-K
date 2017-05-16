@@ -83,3 +83,14 @@ val LEVEL_HEIGHT_KEY = "height"
 val LEVEL_IDENTIFIER_KEY = "itemIdentifier"
 val LEVEL_ENEMY_TAG = "Enemy"
 
+//exit portal
+val EXIT_PORTAL_SPRITE_1 = "exit-portal-1"
+val EXIT_PORTAL_SPRITE_2 = "exit-portal-2"
+val EXIT_PORTAL_SPRITE_3 = "exit-portal-3"
+val EXIT_PORTAL_SPRITE_4 = "exit-portal-4"
+val EXIT_PORTAL_SPRITE_5 = "exit-portal-5"
+val EXIT_PORTAL_SPRITE_6 = "exit-portal-6"
+val EXIT_PORTAL_CENTER = Vector2(31f, 31f)
+val EXIT_PORTAL_FRAME_DURATION = 0.1f
+val EXIT_PORTAL_DEFAULT_LOCATION = Vector2(200f, 200f)
+
