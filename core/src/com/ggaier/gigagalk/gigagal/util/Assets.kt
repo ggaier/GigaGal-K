@@ -118,6 +118,7 @@ object Assets : Disposable, AssetErrorListener {
     }
 
     class ExitPortAssets(atlas: TextureAtlas) {
+
         val mExitPortalAnimation: Animation<TextureAtlas.AtlasRegion>
 
         init {
