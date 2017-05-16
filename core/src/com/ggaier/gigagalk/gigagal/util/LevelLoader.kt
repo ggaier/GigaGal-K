@@ -68,8 +68,8 @@ class LevelLoader {
                 val platform = Platform(x, y + height, width, height)
                 platformAry.add(platform)
 
-                val identifier = platformObject[LEVEL_IDENTIFIER_KEY] as String
-                if (identifier != null && identifier.equals(LEVEL_ENEMY_TAG)) {
+                val identifier = platformObject[LEVEL_IDENTIFIER_KEY] as? String?
+                if (identifier?.equals(LEVEL_ENEMY_TAG) ?: false) {
                     level.mEnemies.add(Enemy(platform))
                 }
             }
