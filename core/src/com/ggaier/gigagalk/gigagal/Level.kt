@@ -16,13 +16,13 @@ import com.ggaier.gigagalk.gigagal.util.Enums
  */
 class Level(val mViewport: Viewport) {
 
-    val mGigagal: Gigagal
+    var mGigagal: Gigagal
     val mEnemies: DelayedRemovalArray<Enemy> = DelayedRemovalArray()
     val mBullets: DelayedRemovalArray<Bullet> = DelayedRemovalArray()
     val mExplosions: DelayedRemovalArray<Explosion> = DelayedRemovalArray()
     val mPowerups: DelayedRemovalArray<Powerup> = DelayedRemovalArray()
 
-    val mExitPortal: ExitPortal
+    var mExitPortal: ExitPortal
     val mPlatforms = Array<Platform>()
 
     init {

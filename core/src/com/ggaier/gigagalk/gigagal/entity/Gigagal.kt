@@ -75,6 +75,9 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
             when (mJumpState) {
                 Enums.JumpState.GROUNDED -> startJump()
                 Enums.JumpState.JUMPING -> continueJump()
+                else -> {
+                    // do nothing
+                }
             }
         } else {
             endJump()

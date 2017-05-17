@@ -1,10 +1,10 @@
 package com.ggaier.gigagalk.gigagal.util
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ggaier.gigagalk.gigagal.Level
-import com.ggaier.gigagalk.gigagal.entity.Enemy
-import com.ggaier.gigagalk.gigagal.entity.Platform
+import com.ggaier.gigagalk.gigagal.entity.*
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
@@ -41,6 +41,10 @@ class LevelLoader {
 
                 loadPlatForms(platforms, level)
 
+                val nonPlatformObjects = composite[LEVEL_IMAGES] as JSONArray
+
+                loadNonPlatformObjects(level, nonPlatformObjects)
+
                 val firstPlatform: JSONObject = platforms[0] as JSONObject
                 Gdx.app.log(TAG, firstPlatform.keys.toString())
             } catch(e: Exception) {
@@ -48,6 +52,30 @@ class LevelLoader {
                 Gdx.app.error(TAG, LEVEL_ERROR_MESSAGE)
             }
             return level
+        }
+
+        private fun loadNonPlatformObjects(level: Level, nonPlatformObjects: JSONArray) {
+            nonPlatformObjects.forEach {
+                val item = it as JSONObject
+                val lowerLeftCorner = Vector2()
+                val x = safeGetFloat(item, LEVEL_Y_KEY)
+                val y = safeGetFloat(item, LEVEL_Y_KEY)
+                lowerLeftCorner.set(x, y)
+                val imageName = item[LEVEL_IMAGENAME_KEY] as String
+                if (imageName.equals(STANDING_RIGHT)) {
+                    val gigagalPosition = lowerLeftCorner.add(GIGAGAL_EYE_POSITION)
+                    Gdx.app.log(TAG, "loaded gigagal at $gigagalPosition")
+                    level.mGigagal = Gigagal(gigagalPosition, level)
+                } else if (imageName.equals(EXIT_PORTAL_SPRITE_1)) {
+                    val exitPortalPosition = lowerLeftCorner.add(EXIT_PORTAL_CENTER)
+                    Gdx.app.log(TAG, "Loaded the exit portal at $exitPortalPosition")
+                    level.mExitPortal = ExitPortal(exitPortalPosition)
+                } else if (imageName.equals(POWERUP_SPRITE)) {
+                    val powerupPosition = lowerLeftCorner.add(POWERUP_CENTER)
+                    Gdx.app.log(TAG, "Loaded a powerup at $powerupPosition")
+                    level.mPowerups.add(Powerup(powerupPosition))
+                }
+            }
         }
 
         private fun loadPlatForms(platforms: JSONArray, level: Level) {

@@ -13,12 +13,12 @@ import com.badlogic.gdx.utils.TimeUtils
 class OneShotAnimation(val mAnimation: Animation<TextureRegion>, val mPosition:Vector2,
                        val mStartTimeNanos:Long){
 
-    inline fun elapsedTime():Float=MathUtils.nanoToSec*(TimeUtils.nanoTime()-
+    fun elapsedTime():Float=MathUtils.nanoToSec*(TimeUtils.nanoTime()-
             mStartTimeNanos)
 
-    inline fun getFrame():TextureRegion=mAnimation.getKeyFrame(elapsedTime())
+    fun getFrame():TextureRegion=mAnimation.getKeyFrame(elapsedTime())
 
-    inline fun isAnimationFinished():Boolean=mAnimation.isAnimationFinished(elapsedTime())
+    fun isAnimationFinished():Boolean=mAnimation.isAnimationFinished(elapsedTime())
 
 
 }
