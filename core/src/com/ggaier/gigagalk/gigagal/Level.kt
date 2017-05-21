@@ -4,34 +4,48 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.DelayedRemovalArray
-import com.badlogic.gdx.utils.viewport.Viewport
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.ggaier.gigagalk.gigagal.entity.*
 import com.ggaier.gigagalk.gigagal.util.EXIT_PORTAL_DEFAULT_LOCATION
 import com.ggaier.gigagalk.gigagal.util.Enums
+import com.ggaier.gigagalk.gigagal.util.WORLD_SIZE
 
 /**
  * Created by ggaier at 20/04/2017 .
  * jwenbo52@gmail.com
  * Level 类是一个管理游戏角色，游戏中的敌人，和平台，以及子弹等等的类。负责他们的更新和渲染。
  */
-class Level(val mViewport: Viewport) {
+class Level() {
 
-    var mGigagal: Gigagal
     val mEnemies: DelayedRemovalArray<Enemy> = DelayedRemovalArray()
     val mBullets: DelayedRemovalArray<Bullet> = DelayedRemovalArray()
     val mExplosions: DelayedRemovalArray<Explosion> = DelayedRemovalArray()
     val mPowerups: DelayedRemovalArray<Powerup> = DelayedRemovalArray()
-
-    var mExitPortal: ExitPortal
     val mPlatforms = Array<Platform>()
+    val mViewport=ExtendViewport(WORLD_SIZE, WORLD_SIZE)
 
-    init {
-        mGigagal = Gigagal(Vector2(15f, 40f), this)
-        mExitPortal = ExitPortal(EXIT_PORTAL_DEFAULT_LOCATION)
-        initDebugLevel()
+    var mGigagal: Gigagal=Gigagal(Vector2(50f, 50f), this)
+    var mExitPortal: ExitPortal=ExitPortal(EXIT_PORTAL_DEFAULT_LOCATION)
+
+    var mGameOver=false
+    var mScore=0
+    var mVictory=false
+
+    companion object{
+
+        @JvmStatic
+        fun  debugLevel():Level{
+            val level=Level()
+            level.initDebugLevel()
+            return level
+        }
+
     }
 
     private fun initDebugLevel() {
+        mGigagal=Gigagal(Vector2(15f, 40f), this)
+        mExitPortal= ExitPortal(Vector2(150f,150f))
+
         mPlatforms.add(Platform(15f, 100f, 30f, 20f))
         val enemyPlatform = Platform(75f, 90f, 100f, 65f)
         mEnemies.add(Enemy(enemyPlatform))
@@ -81,6 +95,9 @@ class Level(val mViewport: Viewport) {
     }
 
     fun render(batch: SpriteBatch) {
+        mViewport.apply()
+        batch.projectionMatrix=mViewport.camera.combined
+        batch.begin()
         for (platform in mPlatforms) {
             platform.render(batch)
         }
@@ -93,6 +110,7 @@ class Level(val mViewport: Viewport) {
         mExplosions.forEach { it.render(batch) }
         mPowerups.forEach { it.render(batch) }
         mExitPortal.render(batch)
+        batch.end()
     }
 
     fun spawnExplosion(position: Vector2) {

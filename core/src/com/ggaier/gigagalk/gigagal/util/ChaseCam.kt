@@ -9,7 +9,7 @@ import com.ggaier.gigagalk.gigagal.entity.Gigagal
  * Created by ggaier
  * jwenbo52@gmail.com
  */
-class ChaseCam(val mCamera: Camera, val mTarget: Gigagal) {
+class ChaseCam(var mCamera: Camera , var mTarget: Gigagal) {
 
     private var mFollowing: Boolean = true
 
