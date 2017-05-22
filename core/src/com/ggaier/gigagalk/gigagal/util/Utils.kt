@@ -21,6 +21,10 @@ object Utils {
 
     }
 
+    fun drawTextureRegion(batch: SpriteBatch, region: TextureRegion, position: Vector2) {
+        drawTextureRegions(batch, region, position.x, position.y)
+    }
+
     fun drawTextureRegions(batch: SpriteBatch, region: TextureRegion,
                            x: Float, y: Float) {
         batch.draw(region.texture,
