@@ -26,9 +26,9 @@ class GamePlayScreen : ScreenAdapter() {
     }
 
     private fun startNewLevel() {
-        mLevel= Level.debugLevel()
-        mChaseCam= ChaseCam(mLevel.mViewport.camera,mLevel.mGigagal)
-        resize(Gdx.graphics.width,Gdx.graphics.height)
+        mLevel = Level.debugLevel()
+        mChaseCam = ChaseCam(mLevel.mViewport.camera, mLevel.mGigagal)
+        resize(Gdx.graphics.width, Gdx.graphics.height)
     }
 
     override fun render(delta: Float) {
@@ -42,14 +42,14 @@ class GamePlayScreen : ScreenAdapter() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mLevel.render(mBatch)
-        mGigagalHud.render(mBatch,)
+        mGigagalHud.render(mBatch, mLevel.mGigagal.mLives, mLevel.mGigagal.mAmmo, mLevel.mScore)
     }
 
 
     override fun resize(width: Int, height: Int) {
         mGigagalHud.mViewport.update(width, height, true)
-        mLevel.mViewport.update(width,height,true)
-        mChaseCam.mCamera=mLevel.mViewport.camera
+        mLevel.mViewport.update(width, height, true)
+        mChaseCam.mCamera = mLevel.mViewport.camera
     }
 
     override fun dispose() {

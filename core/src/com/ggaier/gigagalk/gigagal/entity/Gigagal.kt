@@ -24,24 +24,30 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     private var mFacing: Enums.Direction = Enums.Direction.RIGHT
     private var mJumpState = Enums.JumpState.FALLING
     private var mWalkingState: Enums.WalkingState = Enums.WalkingState.STANDING
-
     private var mJumpStartTime: Long = Long.MIN_VALUE
     private var mWalkStartTime: Long = Long.MIN_VALUE
-
-    private var mAmmo = INTIAL_AMMO
+    var mAmmo = INTIAL_AMMO
+        private set
+    var mLives= INITIAL_LIVES
+        private set
 
     init {
         init()
     }
 
     fun init() {
+        mAmmo = INTIAL_AMMO
+        mLives= INITIAL_LIVES
+        resSpawn()
+    }
+
+    private fun resSpawn() {
         mPosition.set(mSpawnLocation)
         mLastFramePosition.set(mSpawnLocation)
         mVelocity.setZero()
         mJumpState = Enums.JumpState.FALLING
         mFacing = Enums.Direction.RIGHT
         mWalkingState = Enums.WalkingState.STANDING
-        mAmmo = INTIAL_AMMO
     }
 
 
@@ -50,7 +56,8 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         mVelocity.y -= delta * GRAVITY
         mPosition.mulAdd(mVelocity, delta)
         if (mPosition.y < KILLING_PANE) {
-            init()
+            mLives--
+            resSpawn()
         }
         if (mJumpState != Enums.JumpState.JUMPING) {
             if (mJumpState != Enums.JumpState.RECOILING) {

@@ -31,6 +31,7 @@ internal const val GIGAGAL_MOVING_SPEED = 64f
 internal const val GIGAGAL_STANCE_WIDTH = 21.0f
 internal val GIGAGAL_CANNON_OFFSET=Vector2(12f,-7f)
 internal const val INTIAL_AMMO=10
+val INITIAL_LIVES = 3
 
 const val GRAVITY: Float = 1000f
 const val MAX_JUMP_DURATION: Float = .15f
