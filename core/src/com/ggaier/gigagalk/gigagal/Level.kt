@@ -25,11 +25,16 @@ class Level() {
     val mPlatforms = Array<Platform>()
     val mViewport = ExtendViewport(WORLD_SIZE, WORLD_SIZE)
 
+    //todo private set
     var mGigagal: Gigagal = Gigagal(Vector2(50f, 50f), this)
+    //todo private set
     var mExitPortal: ExitPortal = ExitPortal(EXIT_PORTAL_DEFAULT_LOCATION)
 
+    //todo private set
     var mGameOver = false
+    //todo private set
     var mScore = 0
+    //todo private set
     var mVictory = false
 
     companion object {
