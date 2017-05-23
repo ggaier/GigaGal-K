@@ -25,7 +25,7 @@ class LevelLoader {
 
         @JvmStatic
         fun load(levelName: String, viewport: Viewport): Level {
-            val level = Level(viewport)
+            val level = Level()
             val path = "levels${File.separator}$levelName.json"
             Gdx.app.log(TAG, "path $path")
             val file = Gdx.files.internal(path)

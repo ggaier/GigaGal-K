@@ -13,7 +13,7 @@ import com.ggaier.gigagalk.gigagal.util.*
 class GigagalHud() {
 
     val mViewport = ExtendViewport(HUD_VIEWPORT_SIZE, HUD_VIEWPORT_SIZE)
-    val mFont = BitmapFont()
+    val mFont:BitmapFont = BitmapFont()
 
     init {
         mFont.data.setScale(1f)
@@ -21,10 +21,12 @@ class GigagalHud() {
 
     fun render(batch: SpriteBatch, lives: Int, ammo: Int, score: Int) {
         mViewport.apply()
-        batch.begin()
 
+        batch.projectionMatrix=mViewport.camera.combined
+        batch.begin()
         val hud = "$HUD_SCORE_LABEL$score\n$HUD_AMMO_LABEL$ammo"
         mFont.draw(batch, hud, HUD_MARGIN, mViewport.worldWidth - HUD_MARGIN)
+
         val standRight = Assets.mGigagalAssets.mStandRight
         (1..lives)
                 .map {

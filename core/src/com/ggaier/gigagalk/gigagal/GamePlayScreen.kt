@@ -54,7 +54,6 @@ class GamePlayScreen : ScreenAdapter() {
 
     override fun dispose() {
         Assets.dispose()
-        mBatch.dispose()
     }
 
 
