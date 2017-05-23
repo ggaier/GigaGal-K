@@ -49,7 +49,7 @@ class VictoryOverlay() {
                 mViewport.worldHeight / 2.5f,
                 0f,
                 Align.center, false)
-
+        batch.end()
     }
 
 

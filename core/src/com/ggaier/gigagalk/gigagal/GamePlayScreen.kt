@@ -25,8 +25,8 @@ class GamePlayScreen : ScreenAdapter() {
     private var mEndOverlayStartTime: Long = 0L
 
     override fun show() {
-        startNewLevel()
         mVictoryOverlay = VictoryOverlay()
+        startNewLevel()
     }
 
     private fun startNewLevel() {
