@@ -25,7 +25,7 @@ class GigagalHud() {
         batch.projectionMatrix=mViewport.camera.combined
         batch.begin()
         val hud = "$HUD_SCORE_LABEL$score\n$HUD_AMMO_LABEL$ammo"
-        mFont.draw(batch, hud, HUD_MARGIN, mViewport.worldWidth - HUD_MARGIN)
+        mFont.draw(batch, hud, HUD_MARGIN, mViewport.worldHeight - HUD_MARGIN)
 
         val standRight = Assets.mGigagalAssets.mStandRight
         (1..lives)
