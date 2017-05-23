@@ -92,9 +92,18 @@ val EXIT_PORTAL_SPRITE_4 = "exit-portal-4"
 val EXIT_PORTAL_SPRITE_5 = "exit-portal-5"
 val EXIT_PORTAL_SPRITE_6 = "exit-portal-6"
 val EXIT_PORTAL_CENTER = Vector2(31f, 31f)
+val EXIT_PORTAL_RADIUS = 28f
 val EXIT_PORTAL_FRAME_DURATION = 0.1f
 val EXIT_PORTAL_DEFAULT_LOCATION = Vector2(200f, 200f)
 
+
+//Victory or Game over screens
+val LEVEL_END_DURATION = 5f
+val VICTORY_MESSAGE = "You are the Winrar!"
+val GAME_OVER_MESSAGE = "Game Over, Gal"
+val EXPLOSION_COUNT = 500
+val ENEMY_COUNT = 200
+val FONT_FILE = "font/header.fnt"
 
 val HUD_VIEWPORT_SIZE=480f
 val HUD_MARGIN=20f

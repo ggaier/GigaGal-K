@@ -6,10 +6,7 @@ import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.DelayedRemovalArray
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.ggaier.gigagalk.gigagal.entity.*
-import com.ggaier.gigagalk.gigagal.util.ENEMY_KILL_SCORE
-import com.ggaier.gigagalk.gigagal.util.EXIT_PORTAL_DEFAULT_LOCATION
-import com.ggaier.gigagalk.gigagal.util.Enums
-import com.ggaier.gigagalk.gigagal.util.WORLD_SIZE
+import com.ggaier.gigagalk.gigagal.util.*
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -25,7 +22,9 @@ class Level() {
     val mPlatforms = Array<Platform>()
     val mViewport = ExtendViewport(WORLD_SIZE, WORLD_SIZE)
 
+    //todo 这里因为Levelloader 类用来初始化Level的时候要用。但是有没有更好的办法呢？
     var mGigagal: Gigagal = Gigagal(Vector2(50f, 50f), this)
+    // public var 开放程度太高。
     var mExitPortal: ExitPortal = ExitPortal(EXIT_PORTAL_DEFAULT_LOCATION)
 
     var mGameOver = false
@@ -66,33 +65,38 @@ class Level() {
     }
 
     fun update(delta: Float) {
-        mGigagal.update(delta, mPlatforms)
-        mBullets.begin()
-        mBullets.forEach {
-            it.update(delta)
-            if (!it.mActive) {
-                mBullets.removeValue(it, false)
-            }
+        if (mGigagal.mPosition.dst(mExitPortal.mPosition) < EXIT_PORTAL_RADIUS) {
+            mVictory = true
         }
-        mBullets.end()
-        mEnemies.begin()
-        mEnemies.forEach {
-            it.update(delta)
-            if (it.mHealth < 1) {
-                mEnemies.removeValue(it, false)
-                mScore += ENEMY_KILL_SCORE
-                spawnExplosion(it.mPosition)
+        if (!mVictory && !mVictory) {
+            mGigagal.update(delta, mPlatforms)
+            mBullets.begin()
+            mBullets.forEach {
+                it.update(delta)
+                if (!it.mActive) {
+                    mBullets.removeValue(it, false)
+                }
             }
-        }
-        mEnemies.end()
+            mBullets.end()
+            mEnemies.begin()
+            mEnemies.forEach {
+                it.update(delta)
+                if (it.mHealth < 1) {
+                    mEnemies.removeValue(it, false)
+                    mScore += ENEMY_KILL_SCORE
+                    spawnExplosion(it.mPosition)
+                }
+            }
+            mEnemies.end()
 
-        mExplosions.begin()
-        mExplosions.forEach {
-            if (it.isFinished()) {
-                mExplosions.removeValue(it, false)
+            mExplosions.begin()
+            mExplosions.forEach {
+                if (it.isFinished()) {
+                    mExplosions.removeValue(it, false)
+                }
             }
+            mExplosions.end()
         }
-        mExplosions.end()
     }
 
     fun spawnBullet(position: Vector2, direction: Enums.Direction) {

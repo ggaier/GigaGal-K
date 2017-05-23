@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.utils.TimeUtils
 import com.ggaier.gigagalk.gigagal.overlays.GigagalHud
-import com.ggaier.gigagalk.gigagal.util.Assets
-import com.ggaier.gigagalk.gigagal.util.BACKGROUND_COLOR
-import com.ggaier.gigagalk.gigagal.util.ChaseCam
+import com.ggaier.gigagalk.gigagal.overlays.VictoryOverlay
+import com.ggaier.gigagalk.gigagal.util.*
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -20,9 +20,13 @@ class GamePlayScreen : ScreenAdapter() {
 
     private lateinit var mChaseCam: ChaseCam
     private lateinit var mLevel: Level
+    private lateinit var mVictoryOverlay: VictoryOverlay
+
+    private var mEndOverlayStartTime: Long = 0L
 
     override fun show() {
         startNewLevel()
+        mVictoryOverlay = VictoryOverlay()
     }
 
     private fun startNewLevel() {
@@ -43,12 +47,33 @@ class GamePlayScreen : ScreenAdapter() {
 
         mLevel.render(mBatch)
         mGigagalHud.render(mBatch, mLevel.mGigagal.mLives, mLevel.mGigagal.mAmmo, mLevel.mScore)
+        renderLevelEndOverlays(mBatch)
+    }
+
+    fun renderLevelEndOverlays(mBatch: SpriteBatch) {
+        if (mLevel.mVictory) {
+            if (mEndOverlayStartTime == 0L) {
+                mEndOverlayStartTime = TimeUtils.nanoTime()
+                mVictoryOverlay.init()
+            }
+            mVictoryOverlay.render(mBatch)
+
+            if (Utils.secondsSince(mEndOverlayStartTime) > LEVEL_END_DURATION){
+                mEndOverlayStartTime=0L
+                levelComplete()
+            }
+        }
+    }
+
+    private fun levelComplete() {
+        startNewLevel()
     }
 
 
     override fun resize(width: Int, height: Int) {
         mGigagalHud.mViewport.update(width, height, true)
         mLevel.mViewport.update(width, height, true)
+        mVictoryOverlay.mViewport.update(width, height, true)
         mChaseCam.mCamera = mLevel.mViewport.camera
     }
 

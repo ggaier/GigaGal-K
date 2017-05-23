@@ -14,18 +14,21 @@ import com.ggaier.gigagalk.gigagal.util.Utils
 class Explosion(val mPosition: Vector2) {
 
     private val mStartTime = TimeUtils.nanoTime()
+    var mOffset = 0f
 
 
     fun render(batch: SpriteBatch) {
-        Utils.drawTextureRegions(batch,
-                Assets.mExplosionAssets.mExplosion.getKeyFrame(Utils.secondsSince(mStartTime)),
-                mPosition,
-                EXPLOSION_CENTER)
+        if (!isFinished() && !yetToStart())
+            Utils.drawTextureRegions(batch,
+                    Assets.mExplosionAssets.mExplosion.getKeyFrame(Utils.secondsSince(mStartTime)),
+                    mPosition,
+                    EXPLOSION_CENTER)
     }
 
 
-    fun isFinished():Boolean=Assets.mExplosionAssets.mExplosion.isAnimationFinished(Utils
+    fun isFinished(): Boolean = Assets.mExplosionAssets.mExplosion.isAnimationFinished(Utils
             .secondsSince(mStartTime))
 
+    fun yetToStart(): Boolean = Utils.secondsSince(mStartTime) - mOffset < 0
 
 }
