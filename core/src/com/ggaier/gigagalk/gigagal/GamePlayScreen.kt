@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.TimeUtils
+import com.ggaier.gigagalk.gigagal.overlays.GameOverOverlay
 import com.ggaier.gigagalk.gigagal.overlays.GigagalHud
 import com.ggaier.gigagalk.gigagal.overlays.VictoryOverlay
 import com.ggaier.gigagalk.gigagal.util.*
@@ -21,11 +22,14 @@ class GamePlayScreen : ScreenAdapter() {
     private lateinit var mChaseCam: ChaseCam
     private lateinit var mLevel: Level
     private lateinit var mVictoryOverlay: VictoryOverlay
+    private lateinit var mGameOverOverlay: GameOverOverlay
 
     private var mEndOverlayStartTime: Long = 0L
 
+
     override fun show() {
         mVictoryOverlay = VictoryOverlay()
+        mGameOverOverlay = GameOverOverlay()
         startNewLevel()
     }
 
@@ -50,19 +54,36 @@ class GamePlayScreen : ScreenAdapter() {
         renderLevelEndOverlays(mBatch)
     }
 
-    fun renderLevelEndOverlays(mBatch: SpriteBatch) {
+    fun renderLevelEndOverlays(batch: SpriteBatch) {
         if (mLevel.mVictory) {
             if (mEndOverlayStartTime == 0L) {
                 mEndOverlayStartTime = TimeUtils.nanoTime()
                 mVictoryOverlay.init()
             }
-            mVictoryOverlay.render(mBatch)
-
-            if (Utils.secondsSince(mEndOverlayStartTime) > LEVEL_END_DURATION){
-                mEndOverlayStartTime=0L
+            mVictoryOverlay.render(batch)
+            if (Utils.secondsSince(mEndOverlayStartTime) > LEVEL_END_DURATION) {
+                mEndOverlayStartTime = 0L
                 levelComplete()
             }
         }
+
+        if (mLevel.mGameOver) {
+            if (mEndOverlayStartTime == 0L) {
+                mEndOverlayStartTime = TimeUtils.nanoTime()
+                mGameOverOverlay.init()
+            }
+            mGameOverOverlay.render(batch)
+            if (Utils.secondsSince(mEndOverlayStartTime) > LEVEL_END_DURATION) {
+                mEndOverlayStartTime = 0L
+                levelFailed()
+
+            }
+        }
+
+    }
+
+    fun levelFailed() {
+        startNewLevel()
     }
 
     private fun levelComplete() {
@@ -75,6 +96,7 @@ class GamePlayScreen : ScreenAdapter() {
         mLevel.mViewport.update(width, height, true)
         mVictoryOverlay.mViewport.update(width, height, true)
         mChaseCam.mCamera = mLevel.mViewport.camera
+        mGameOverOverlay.mViewport.update(width, height, true)
     }
 
     override fun dispose() {

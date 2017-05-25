@@ -65,10 +65,12 @@ class Level() {
     }
 
     fun update(delta: Float) {
-        if (mGigagal.mPosition.dst(mExitPortal.mPosition) < EXIT_PORTAL_RADIUS) {
+        if (mGigagal.mLives < 0) {
+            mGameOver = true
+        } else if (mGigagal.mPosition.dst(mExitPortal.mPosition) < EXIT_PORTAL_RADIUS) {
             mVictory = true
         }
-        if (!mVictory && !mVictory) {
+        if (!mGameOver && !mVictory) {
             mGigagal.update(delta, mPlatforms)
             mBullets.begin()
             mBullets.forEach {
