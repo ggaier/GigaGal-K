@@ -1,5 +1,6 @@
 package com.ggaier.gigagalk.gigagal
 
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
@@ -34,8 +35,13 @@ class GamePlayScreen : ScreenAdapter() {
         mVictoryOverlay = VictoryOverlay()
         mGameOverOverlay = GameOverOverlay()
         mOnScreenControls = OnScreenControls()
+        if (onMobile())
+            Gdx.app.input.inputProcessor = mOnScreenControls
         startNewLevel()
     }
+
+    fun onMobile(): Boolean = Gdx.app.type == Application.ApplicationType.Android ||
+            Gdx.app.type == Application.ApplicationType.iOS
 
     private fun startNewLevel() {
         //        mLevel = Level.debugLevel()
