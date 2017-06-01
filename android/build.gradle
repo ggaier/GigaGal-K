@@ -1,3 +1,4 @@
+apply plugin: 'kotlin-android-extensions'
 android {
     buildToolsVersion "25.0.2"
     compileSdkVersion 25
