@@ -29,14 +29,14 @@ internal const val GIGAGAL_HEIGHT = 23.0f
 internal val GIGAGAL_EYE_POSITION = Vector2(16f, 24f)
 internal const val GIGAGAL_MOVING_SPEED = 64f
 internal const val GIGAGAL_STANCE_WIDTH = 21.0f
-internal val GIGAGAL_CANNON_OFFSET=Vector2(12f,-7f)
-internal const val INTIAL_AMMO=10
+internal val GIGAGAL_CANNON_OFFSET = Vector2(12f, -7f)
+internal const val INTIAL_AMMO = 10
 val INITIAL_LIVES = 3
 
 const val GRAVITY: Float = 1000f
 const val MAX_JUMP_DURATION: Float = .15f
 const val JUMP_SPEED: Float = 250f
-val KNOCK_BACK_VELOCITY=Vector2(200f,200f)
+val KNOCK_BACK_VELOCITY = Vector2(200f, 200f)
 internal val KILLING_PANE = -100f
 internal const val CHASE_CAM_MOVING_SPEED = 128f
 
@@ -47,31 +47,32 @@ const val PLATFORM_SPRITE = "platform"
 //Enemy
 internal const val ENEMY_SPRITE = "enemy"
 internal val ENEMY_CENTER = Vector2(14f, 22f)
-internal const val ENEMY_MOVING_SPEED=10f
-internal const val ENEMY_BOB_PERIOD=3.0f
-internal const val ENEMY_BOB_AMPLITUDE=2f
-internal const val ENEMY_COLLISION_RADIUS=15f
-internal const val ENEMY_SHOT_RADIUS=17f
-internal const val ENEMY_HEALTH=5
+internal const val ENEMY_MOVING_SPEED = 10f
+internal const val ENEMY_BOB_PERIOD = 3.0f
+internal const val ENEMY_BOB_AMPLITUDE = 2f
+internal const val ENEMY_COLLISION_RADIUS = 15f
+internal const val ENEMY_SHOT_RADIUS = 17f
+internal const val ENEMY_HEALTH = 5
 
 //Bullets
-internal const val BULLET_SPRITE="bullet"
-internal val BULLET_CENTER=Vector2(3f,2f)
-internal val BULLET_MOVE_SPEED=150f
+internal const val BULLET_SPRITE = "bullet"
+internal val BULLET_CENTER = Vector2(3f, 2f)
+internal val BULLET_MOVE_SPEED = 150f
 
 //Explosions
-internal const val EXPLOSION_LARGE="explosion-large"
-internal const val EXPLOSION_MEDIUM="explosion-medium"
-internal const val EXPLOSION_SMALL="explosion-small"
-internal const val EXPLOSION_DURATION=0.5f
-internal val EXPLOSION_CENTER=Vector2(8f,8f)
+internal const val EXPLOSION_LARGE = "explosion-large"
+internal const val EXPLOSION_MEDIUM = "explosion-medium"
+internal const val EXPLOSION_SMALL = "explosion-small"
+internal const val EXPLOSION_DURATION = 0.5f
+internal val EXPLOSION_CENTER = Vector2(8f, 8f)
 
 //Powerups
-internal const val POWERUP_SPRITE="powerup"
-internal val POWERUP_CENTER=Vector2(7f,5f)
-internal const val POWERUP_AMMO=10
+internal const val POWERUP_SPRITE = "powerup"
+internal val POWERUP_CENTER = Vector2(7f, 5f)
+internal const val POWERUP_AMMO = 10
 
 //Level
+// Level Loading
 val LEVEL_COMPOSITE = "composite"
 val LEVEL_9PATCHES = "sImage9patchs"
 val LEVEL_IMAGES = "sImages"
@@ -83,6 +84,8 @@ val LEVEL_WIDTH_KEY = "width"
 val LEVEL_HEIGHT_KEY = "height"
 val LEVEL_IDENTIFIER_KEY = "itemIdentifier"
 val LEVEL_ENEMY_TAG = "Enemy"
+val LEVELS = arrayOf("levels/Level1.dt", "levels/Level2.dt")
+
 
 //exit portal
 val EXIT_PORTAL_SPRITE_1 = "exit-portal-1"
@@ -105,8 +108,9 @@ val EXPLOSION_COUNT = 500
 val ENEMY_COUNT = 200
 val FONT_FILE = "font/header.fnt"
 
-val HUD_VIEWPORT_SIZE=480f
-val HUD_MARGIN=20f
+//hud
+val HUD_VIEWPORT_SIZE = 480f
+val HUD_MARGIN = 20f
 val HUD_AMMO_LABEL = "Ammo: "
 val HUD_SCORE_LABEL = "Score: "
 
@@ -114,3 +118,11 @@ val ENEMY_KILL_SCORE = 100
 val ENEMY_HIT_SCORE = 25
 val POWERUP_SCORE = 50
 
+// OnScreen controls
+val ONSCREEN_CONTROLS_VIEWPORT_SIZE = 200f
+val MOVE_LEFT_BUTTON = "button-move-left"
+val MOVE_RIGHT_BUTTON = "button-move-right"
+val SHOOT_BUTTON = "button-shoot"
+val JUMP_BUTTON = "button-jump"
+val BUTTON_CENTER = Vector2(15f, 15f)
+val BUTTON_RADIUS = 32f

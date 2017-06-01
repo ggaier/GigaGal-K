@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Disposable
+import java.awt.TextArea
 
 /**
  * Created by ggaier at 20/04/2017 .
@@ -24,6 +25,7 @@ object Assets : Disposable, AssetErrorListener {
     val mExplosionAssets: ExplosionAssets
     val mPowerupAssets: PowerupAssets
     val mExitPortalAssets: ExitPortAssets
+    val mOnScreenControlsAssets: OnScreenControlsAssets
 
     init {
         mAssetsManager.setErrorListener(this)
@@ -37,6 +39,7 @@ object Assets : Disposable, AssetErrorListener {
         mExplosionAssets = ExplosionAssets(atlas)
         mPowerupAssets = PowerupAssets(atlas)
         mExitPortalAssets = ExitPortAssets(atlas)
+        mOnScreenControlsAssets = OnScreenControlsAssets(atlas)
     }
 
     override fun error(asset: AssetDescriptor<*>?, throwable: Throwable?) {
@@ -132,6 +135,14 @@ object Assets : Disposable, AssetErrorListener {
             exportFrames.addAll(ep1, ep2, ep3, ep4, ep5, ep6)
             mExitPortalAnimation = Animation(EXIT_PORTAL_FRAME_DURATION, exportFrames)
         }
+    }
+
+    class OnScreenControlsAssets(val mAtlas: TextureAtlas) {
+
+        val mMoveRight: TextureAtlas.AtlasRegion = mAtlas.findRegion(MOVE_RIGHT_BUTTON)
+        val mMoveLeft: TextureAtlas.AtlasRegion = mAtlas.findRegion(MOVE_LEFT_BUTTON)
+        val mShoot: TextureAtlas.AtlasRegion = mAtlas.findRegion(SHOOT_BUTTON)
+        val mJump: TextureAtlas.AtlasRegion = mAtlas.findRegion(JUMP_BUTTON)
     }
 
 }

@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.TimeUtils
 import com.ggaier.gigagalk.gigagal.overlays.GameOverOverlay
 import com.ggaier.gigagalk.gigagal.overlays.GigagalHud
+import com.ggaier.gigagalk.gigagal.overlays.OnScreenControls
 import com.ggaier.gigagalk.gigagal.overlays.VictoryOverlay
 import com.ggaier.gigagalk.gigagal.util.*
 
@@ -23,6 +25,7 @@ class GamePlayScreen : ScreenAdapter() {
     private lateinit var mLevel: Level
     private lateinit var mVictoryOverlay: VictoryOverlay
     private lateinit var mGameOverOverlay: GameOverOverlay
+    private lateinit var mOnScreenControls: OnScreenControls
 
     private var mEndOverlayStartTime: Long = 0L
 
@@ -30,12 +33,16 @@ class GamePlayScreen : ScreenAdapter() {
     override fun show() {
         mVictoryOverlay = VictoryOverlay()
         mGameOverOverlay = GameOverOverlay()
+        mOnScreenControls = OnScreenControls()
         startNewLevel()
     }
 
     private fun startNewLevel() {
-        mLevel = Level.debugLevel()
+        //        mLevel = Level.debugLevel()
+        val levelName = LEVELS[MathUtils.random(LEVELS.size - 1)]
+        mLevel = LevelLoader.load(levelName)
         mChaseCam = ChaseCam(mLevel.mViewport.camera, mLevel.mGigagal)
+        mOnScreenControls.mGigagal = mLevel.mGigagal
         resize(Gdx.graphics.width, Gdx.graphics.height)
     }
 
@@ -50,6 +57,7 @@ class GamePlayScreen : ScreenAdapter() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mLevel.render(mBatch)
+        mOnScreenControls.render(mBatch)
         mGigagalHud.render(mBatch, mLevel.mGigagal.mLives, mLevel.mGigagal.mAmmo, mLevel.mScore)
         renderLevelEndOverlays(mBatch)
     }
@@ -97,6 +105,8 @@ class GamePlayScreen : ScreenAdapter() {
         mVictoryOverlay.mViewport.update(width, height, true)
         mChaseCam.mCamera = mLevel.mViewport.camera
         mGameOverOverlay.mViewport.update(width, height, true)
+        mOnScreenControls.mViewport.update(width, height, true)
+        mOnScreenControls.recalculateButtonPositions()
     }
 
     override fun dispose() {
