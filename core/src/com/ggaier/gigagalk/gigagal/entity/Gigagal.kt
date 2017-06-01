@@ -28,8 +28,12 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     private var mWalkStartTime: Long = Long.MIN_VALUE
     var mAmmo = INTIAL_AMMO
         private set
-    var mLives= INITIAL_LIVES
+    var mLives = INITIAL_LIVES
         private set
+
+    var jumpButtonPressed: Boolean = false
+    var leftButtonPressed: Boolean = false
+    var rightButtonPressed: Boolean = false
 
     init {
         init()
@@ -37,7 +41,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
 
     fun init() {
         mAmmo = INTIAL_AMMO
-        mLives= INITIAL_LIVES
+        mLives = INITIAL_LIVES
         resSpawn()
     }
 
@@ -78,7 +82,7 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
                 GIGAGAL_HEIGHT)
         isCollideWithEnemies(gigagalBounds)
 
-        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.Z) || jumpButtonPressed) {
             when (mJumpState) {
                 Enums.JumpState.GROUNDED -> startJump()
                 Enums.JumpState.JUMPING -> continueJump()
@@ -91,9 +95,11 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         }
 
         if (mJumpState != Enums.JumpState.RECOILING) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            val left = Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed
+            val right = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed
+            if (left && !right) {
                 moveLeft(delta)
-            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            } else if (right && !left) {
                 moveRight(delta)
             } else {
                 mWalkingState = Enums.WalkingState.STANDING
@@ -119,16 +125,8 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
     }
 
     private fun shootBulletIfKeyPressed() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && mAmmo > 0) {
-            mAmmo--
-            val bulletPosition = if (mFacing == Enums.Direction.LEFT) {
-                Vector2(mPosition.x - GIGAGAL_CANNON_OFFSET.x,
-                        mPosition.y + GIGAGAL_CANNON_OFFSET.y)
-            } else {
-                Vector2(mPosition.x + GIGAGAL_CANNON_OFFSET.x,
-                        mPosition.y + GIGAGAL_CANNON_OFFSET.y)
-            }
-            mLevel.spawnBullet(bulletPosition, mFacing)
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+            shoot()
         }
     }
 
@@ -233,6 +231,20 @@ class Gigagal(val mSpawnLocation: Vector2, val mLevel: Level) {
         }
         Utils.drawTextureRegions(batch, region, mPosition.x - GIGAGAL_EYE_POSITION.x,
                 mPosition.y - GIGAGAL_EYE_POSITION.y)
+    }
+
+    fun shoot() {
+        if (mAmmo > 0) {
+            mAmmo--
+            val bulletPosition = if (mFacing == Enums.Direction.LEFT) {
+                Vector2(mPosition.x - GIGAGAL_CANNON_OFFSET.x,
+                        mPosition.y + GIGAGAL_CANNON_OFFSET.y)
+            } else {
+                Vector2(mPosition.x + GIGAGAL_CANNON_OFFSET.x,
+                        mPosition.y + GIGAGAL_CANNON_OFFSET.y)
+            }
+            mLevel.spawnBullet(bulletPosition, mFacing)
+        }
     }
 
 
