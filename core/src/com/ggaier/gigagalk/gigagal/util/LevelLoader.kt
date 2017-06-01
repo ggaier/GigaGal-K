@@ -2,13 +2,11 @@ package com.ggaier.gigagalk.gigagal.util
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.viewport.Viewport
 import com.ggaier.gigagalk.gigagal.Level
 import com.ggaier.gigagalk.gigagal.entity.*
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
-import java.io.File
 
 
 /**
@@ -26,7 +24,8 @@ class LevelLoader {
         @JvmStatic
         fun load(levelName: String): Level {
             val level = Level()
-            val path = "levels${File.separator}$levelName.json"
+            //            val path = "levels${File.separator}$levelName.json"
+            val path = levelName
             Gdx.app.log(TAG, "path $path")
             val file = Gdx.files.internal(path)
             val parser = JSONParser()

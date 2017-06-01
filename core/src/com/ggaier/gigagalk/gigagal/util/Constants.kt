@@ -84,7 +84,7 @@ val LEVEL_WIDTH_KEY = "width"
 val LEVEL_HEIGHT_KEY = "height"
 val LEVEL_IDENTIFIER_KEY = "itemIdentifier"
 val LEVEL_ENEMY_TAG = "Enemy"
-val LEVELS = arrayOf("levels/Level1.dt", "levels/Level2.dt")
+val LEVELS = arrayOf("levels/Level1.json", "levels/Level2.json")
 
 
 //exit portal
